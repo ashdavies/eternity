@@ -1,0 +1,119 @@
+package io.ashdavies.eternity.chat;
+
+import android.net.Uri;
+import android.support.annotation.NonNull;
+import android.support.v4.util.Pair;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import io.ashdavies.commons.presenter.AbstractViewPresenter;
+import io.ashdavies.commons.view.ListView;
+import io.ashdavies.eternity.rx.AbstractViewError;
+import io.ashdavies.rx.repository.Repository;
+import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Action;
+import io.reactivex.functions.Consumer;
+import java.util.UUID;
+import javax.annotation.Nullable;
+import javax.inject.Inject;
+
+class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements MessageListener {
+
+  private final MessageRepository messages;
+  private final MessageStateStorage storage;
+
+  private CompositeDisposable disposables;
+
+  @Inject
+  ChatPresenter(MessageRepository messages, MessageStateStorage storage) {
+    this.messages = messages;
+    this.storage = storage;
+  }
+
+  @Override
+  protected void onViewAttached(@NonNull View view) {
+    super.onViewAttached(view);
+
+    initCurrentUser();
+    initDisposables();
+    initMessages();
+  }
+
+  private void initCurrentUser() {
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    if (user == null) {
+      getView().startSignInActivity();
+      return;
+    }
+
+    getView().setAvatar(user.getPhotoUrl());
+  }
+
+  private void initDisposables() {
+    if (disposables != null) {
+      disposables.dispose();
+    }
+
+    disposables = new CompositeDisposable();
+  }
+
+  private void initMessages() {
+    Disposable disposable = messages.getAll()
+        .subscribe(new Consumer<Message>() {
+
+          @Override
+          public void accept(Message message) throws Exception {
+            getView().add(new Pair<>(message, storage.get(message.uuid())));
+            getView().scrollToTop();
+          }
+        }, new AbstractViewError<>(getView()));
+
+    disposables.add(disposable);
+  }
+
+  @Override
+  protected void onViewDetached() {
+    disposables.dispose();
+  }
+
+  @Override
+  public void favourite(Message message, boolean favourite) {
+    storage.put(MessageState.create(message.uuid(), favourite), new MessageStateResolver());
+  }
+
+  @Override
+  public void post(String string, @Nullable Message original) {
+    Message message = Message.builder()
+        .uuid(UUID.randomUUID().toString())
+        .text(string)
+        .author(Author.from(FirebaseAuth.getInstance().getCurrentUser()))
+        .created(System.currentTimeMillis())
+        .original(original)
+        .build();
+
+    Disposable disposable = messages
+        .put(message, new Repository.Resolver<Message, String>() {
+          @Override
+          public String resolve(Message message) {
+            return message.uuid();
+          }
+        })
+        .subscribe(new Action() {
+          @Override
+          public void run() throws Exception {
+            getView().hideProgress();
+          }
+        }, new AbstractViewError<>(getView()));
+
+    disposables.add(disposable);
+  }
+
+  public interface View extends ListView<Pair<Message, MessageState>> {
+
+    void setAvatar(Uri uri);
+
+    void startSignInActivity();
+
+    void scrollToTop();
+  }
+}

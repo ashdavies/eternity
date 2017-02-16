@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Application -->
+  <string name="application">Eternity</string>
+
+  <!-- Actions -->
+  <string name="action_favourite">Favourite</string>
+  <string name="action_repost">Repost</string>
+  <string name="action_sign_out">Sign Out</string>
+
+  <!-- Messages -->
+  <string name="message_house_traps" translatable="false">My house is full of traps</string>
+  <string name="message_horse_aisle" translatable="false">There\'s a horse in aisle five</string>
+
+  <string name="quote_hendrik_willem_van_loon" translatable="false"><![CDATA[
+    High up in the North in the land called Svithjod, there stands a rock.\n\n
+    It is a hundred miles high and a hundred miles wide.\n\n
+    Once every thousand years a little bird comes to this rock to sharpen its beak.\n\n
+    When the rock has thus been worn away, then a single day of eternity will have gone by.\n\n
+    Hendrik Willem Van Loon
+  ]]></string>
+
+  <string name="quote_randal_munroe" translatable="false"><![CDATA[
+    Let’s imagine a language which has only two valid sentences,
+    and every tweet must be one of the two sentences.\n\n
+    Randal Munroe
+  ]]></string>
+
+  <!-- Labels -->
+  <string name="label_minutes">%dm</string>
+  <string name="label_hours">%dh</string>
+  <string name="label_error">Error</string>
+  <string name="label_reposted">%s reposted</string>
+
+  <!-- Titles -->
+  <string name="title_home">Home</string>
+</resources>

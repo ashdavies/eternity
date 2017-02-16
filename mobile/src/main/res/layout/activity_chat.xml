@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/coordinator"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+  <android.support.design.widget.AppBarLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+      android:fitsSystemWindows="true">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:background="@color/accent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:elevation="4dp"
+        app:contentInsetLeft="0dp"
+        app:contentInsetStart="0dp"
+        app:contentInsetStartWithNavigation="0dp"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+      <ImageView
+          android:id="@+id/avatar"
+          android:contentDescription="@null"
+          android:layout_width="wrap_content"
+          android:layout_height="match_parent"
+          android:layout_marginStart="@dimen/default_margin"
+          android:layout_marginEnd="@dimen/default_margin"/>
+
+      <TextView
+          style="@style/Theme.Eternity.TextAppearance.Standard"
+          android:id="@+id/title"
+          android:layout_width="wrap_content"
+          android:layout_marginStart="@dimen/default_margin"
+          android:gravity="start"
+          android:textColor="@android:color/white"
+          android:textSize="@dimen/primary_text"
+          android:text="@string/title_home"
+          android:textStyle="bold"/>
+
+    </android.support.v7.widget.Toolbar>
+
+  </android.support.design.widget.AppBarLayout>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:orientation="vertical"
+      app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:scrollbars="vertical"/>
+
+    <ProgressBar
+        style="?android:attr/progressBarStyleLarge"
+        android:id="@+id/progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:visibility="gone"/>
+
+  </FrameLayout>
+
+  <!--<com.getbase.floatingactionbutton.FloatingActionsMenu
+      android:id="@+id/actions"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_gravity="bottom|end"
+      android:layout_margin="@dimen/default_margin"
+      fab:fab_addButtonColorNormal="@color/accent"
+      fab:fab_addButtonColorPressed="@color/primary"
+      fab:fab_addButtonPlusIconColor="@android:color/white"
+      app:fab_labelStyle="@style/Theme.Eternity.Button.Action.Menu">
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_house_traps"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_dark"
+        fab:fab_title="@string/message_house_traps"
+        fab:fab_icon="@drawable/ic_add"
+        fab:fab_size="mini"/>
+
+    <com.getbase.floatingactionbutton.FloatingActionButton
+        android:id="@+id/action_horse_aisle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        fab:fab_colorNormal="@color/primary"
+        fab:fab_colorPressed="@color/primary_dark"
+        fab:fab_title="@string/message_horse_aisle"
+        fab:fab_icon="@drawable/ic_add"
+        fab:fab_size="mini"/>
+
+  </com.getbase.floatingactionbutton.FloatingActionsMenu>-->
+
+</android.support.design.widget.CoordinatorLayout>

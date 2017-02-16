@@ -1,0 +1,44 @@
+# built application files
+*.apk
+*.ap_
+
+# files for the dex VM
+*.dex
+
+# Java class files
+*.class
+
+# generated files
+bin/
+gen/
+out/
+build.log
+build-log.xml
+
+# Local configuration files (android, sdk path, etc)
+local.properties
+
+.project
+.classpath
+.settings
+target/
+build/
+classes/
+gen-external-apklibs/
+tmp/
+
+# IDEA Ignores
+*.iml
+*.ipr
+*.iws
+.idea/
+.gradle/
+
+# Google services config file
+google-services.json
+
+# MAC
+*.DS_Store
+
+# Linux
+*~

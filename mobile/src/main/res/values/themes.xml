@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- Base Themes -->
+  <style name="Theme.Eternity" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <item name="android:buttonStyle">@style/Theme.Eternity.Button</item>
+    <item name="android:editTextStyle">@style/Theme.Eternity.EditText</item>
+
+    <item name="colorPrimary">@color/primary</item>
+    <item name="colorPrimaryDark">@color/primary_dark</item>
+    <item name="colorAccent">@color/accent</item>
+
+    <item name="android:windowBackground">@android:color/white</item>
+  </style>
+
+  <!-- Fullscreen Themes -->
+  <style name="Theme.Eternity.Fullscreen" parent="Theme.Eternity">
+    <item name="android:windowTranslucentStatus">true</item>
+    <item name="android:windowTranslucentNavigation">true</item>
+  </style>
+
+  <style name="Theme.Eternity.Fullscreen.Splash" parent="Theme.Eternity.Fullscreen">
+    <item name="android:windowBackground">@drawable/splash_background</item>
+  </style>
+
+  <!-- Container Themes -->
+  <style name="Theme.Eternity.Layout"/>
+
+  <style name="Theme.Eternity.Layout.Horizontal" parent="Theme.Eternity.Layout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">horizontal</item>
+  </style>
+
+  <style name="Theme.Eternity.Layout.Vertical" parent="Theme.Eternity.Layout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:orientation">vertical</item>
+  </style>
+
+  <!-- Button Themes -->
+  <style name="Theme.Eternity.Button" parent="Widget.AppCompat.Button">
+    <item name="android:textColor">@color/icons</item>
+    <item name="android:textAllCaps">true</item>
+  </style>
+
+  <style name="Theme.Eternity.Button.Action" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:layout_width">@dimen/action_size</item>
+    <item name="android:layout_height">@dimen/action_size</item>
+    <item name="android:layout_margin">@dimen/action_margin</item>
+    <item name="android:layout_gravity">end|bottom</item>
+    <item name="android:padding">@dimen/action_padding</item>
+
+    <item name="android:background">@drawable/action_background</item>
+    <item name="android:textColor">@color/icons</item>
+  </style>
+
+  <style name="Theme.Eternity.Button.Colored" parent="Widget.AppCompat.Button.Colored">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:padding">@dimen/default_padding</item>
+
+    <item name="android:textColor">@color/icons</item>
+  </style>
+
+  <!-- Dialog Themes -->
+  <style name="Theme.Eternity.Dialog"/>
+
+  <style name="Theme.Eternity.Dialog.Fullscreen">
+    <item name="android:windowContentOverlay">@null</item>
+    <item name="android:windowFullscreen">true</item>
+    <item name="android:windowIsFloating">true</item>
+    <item name="android:windowNoTitle">true</item>
+  </style>
+
+  <!-- TextAppearance Themes -->
+  <style name="Theme.Eternity.TextAppearance"/>
+
+  <style name="Theme.Eternity.TextAppearance.Standard" parent="TextAppearance.AppCompat.Body1">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+
+    <item name="android:textColor">@color/secondary_text</item>
+    <item name="android:textSize">@dimen/secondary_text</item>
+  </style>
+
+  <style name="Theme.Eternity.TextAppearance.Headline" parent="TextAppearance.AppCompat.Headline">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginStart">@dimen/default_margin</item>
+    <item name="android:layout_marginEnd">@dimen/default_margin</item>
+    <item name="android:gravity">center_horizontal</item>
+
+    <item name="android:textColor">@color/primary_text</item>
+    <item name="android:textSize">@dimen/primary_text</item>
+  </style>
+
+  <style name="Theme.Eternity.TextAppearance.Quote" parent="Theme.Eternity.TextAppearance.Standard"/>
+
+  <!-- EditText Themes -->
+  <style name="Theme.Eternity.EditText" parent="Widget.AppCompat.EditText">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+
+    <item name="android:textColor">@color/primary_text</item>
+    <item name="android:textSize">@dimen/primary_text</item>
+  </style>
+
+  <!-- TextInputLayout Themes -->
+  <style name="Theme.Eternity.TextInputLayout" parent="Widget.Design.TextInputLayout">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">wrap_content</item>
+    <item name="android:layout_marginTop">@dimen/list_content_spacing</item>
+    <item name="android:layout_marginEnd">@dimen/default_margin</item>
+    <item name="android:layout_marginBottom">@dimen/list_content_spacing</item>
+    <item name="android:layout_marginStart">@dimen/default_margin</item>
+  </style>
+</resources>

@@ -1,0 +1,150 @@
+ext {
+
+  sourceCompatibilityVersion = JavaVersion.VERSION_1_7
+  targetCompatibilityVersion = JavaVersion.VERSION_1_7
+
+  versions = [
+
+      'annotations': [
+
+          'jsr305': '3.0.1'
+
+      ],
+
+      'android'    : [
+
+          'commons': '0.5.6',
+          'support': '25.2.0',
+
+      ],
+
+      'auto'       : [
+
+          'value'   : '1.2',
+          'firebase': '1.0.1',
+
+      ],
+
+      'butterknife': '8.5.1',
+      'dagger'     : '2.9',
+      'fab'        : '1.10.1',
+
+      'google'     : [
+
+          'play': [
+
+              'services': '10.2.0'
+
+          ]
+
+      ],
+
+      'picasso'    : '2.5.2',
+
+      'rx'         : [
+
+          'java'    : '2.0.6',
+          'android' : '2.0.1',
+          'tasks'   : '1.1.3',
+          'firebase': '1.2.3',
+
+      ],
+
+      'truth'      : '0.30',
+      'mockito'    : '1.10.19'
+
+  ]
+
+  libraries = [
+
+      'annotations': [
+
+          'jsr305': "com.google.code.findbugs:jsr305:$versions.annotations.jsr305"
+
+      ],
+
+      'android'    : [
+
+          'commons': "io.ashdavies:commons-android:$versions.android.commons",
+          'support': [
+
+              'appCompat'   : "com.android.support:appcompat-v7:$versions.android.support",
+              'cardView'    : "com.android.support:cardview-v7:$versions.android.support",
+              'design'      : "com.android.support:design:$versions.android.support",
+              'recyclerView': "com.android.support:recyclerview-v7:$versions.android.support"
+
+          ],
+
+      ],
+
+      'auto'       : [
+
+          'value'   : [
+
+              'core'    : "com.google.auto.value:auto-value:$versions.auto.value",
+              'compiler': "com.google.auto.value:auto-value:$versions.auto.value"
+
+          ],
+
+          'firebase': [
+
+              'core'    : "me.mattlogan.auto.value:auto-value-firebase-annotation:$versions.auto.firebase",
+              'adapter' : "me.mattlogan.auto.value:auto-value-firebase-adapter:$versions.auto.firebase",
+              'compiler': "me.mattlogan.auto.value:auto-value-firebase:$versions.auto.firebase"
+
+          ]
+
+      ],
+
+      'butterknife': [
+
+          'core'    : "com.jakewharton:butterknife:$versions.butterknife",
+          'compiler': "com.jakewharton:butterknife-compiler:$versions.butterknife"
+
+      ],
+
+      'dagger'     : [
+
+          'core'    : "com.google.dagger:dagger:$versions.dagger",
+          'compiler': "com.google.dagger:dagger-compiler:$versions.dagger"
+
+      ],
+
+      'fab'        : "com.getbase:floatingactionbutton:$versions.fab",
+
+      'firebase'   : [
+
+          'core'    : "com.google.firebase:firebase-core:$versions.google.play.services",
+          'auth'    : "com.google.firebase:firebase-auth:$versions.google.play.services",
+          'database': "com.google.firebase:firebase-database:$versions.google.play.services",
+          'config'  : "com.google.firebase:firebase-config:$versions.google.play.services",
+          'crash'   : "com.google.firebase:firebase-crash:$versions.google.play.services"
+
+      ],
+
+      'google'     : [
+
+          'play': [
+
+              'auth': "com.google.android.gms:play-services-auth:$versions.google.play.services"
+
+          ]
+
+      ],
+
+      'picasso'    : "com.squareup.picasso:picasso:$versions.picasso",
+
+      'rx'         : [
+
+          'java'    : "io.reactivex.rxjava2:rxjava:$versions.rx.java",
+          'android' : "io.reactivex.rxjava2:rxandroid:$versions.rx.android",
+          'tasks'   : "io.ashdavies.rx:rx-tasks:$versions.rx.tasks",
+          'firebase': "io.ashdavies.rx:rx-firebase:$versions.rx.firebase",
+
+      ],
+
+      'truth'      : "com.google.truth:truth:$versions.truth",
+      'mockito'    : "org.mockito:mockito-core:$versions.mockito"
+
+  ]
+}

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+  <!-- System Metrics -->
+  <item name="match_parent" format="dimension" type="dimen">-1px</item>
+  <item name="wrap_content" format="dimension" type="dimen">-2px</item>
+
+  <!-- Default Metrics -->
+  <dimen name="default_margin">16dp</dimen>
+  <dimen name="default_padding">12dp</dimen>
+  <dimen name="default_elevation">2dp</dimen>
+
+  <dimen name="default_half_margin">8dp</dimen>
+  <dimen name="default_half_padding">6dp</dimen>
+
+  <dimen name="minus_margin">-16dp</dimen>
+  <dimen name="minus_padding">-12dp</dimen>
+
+  <dimen name="default_margin_large">32dp</dimen>
+  <dimen name="default_padding_large">24dp</dimen>
+  <dimen name="default_elevation_large">4dp</dimen>
+
+  <!-- Dialog Metrics -->
+  <dimen name="dialog_width">512dp</dimen>
+  <dimen name="dialog_header_height">16dp</dimen>
+
+  <!-- Dialog Fragment Metrics -->
+  <dimen name="dialog_fragment_width">@dimen/match_parent</dimen>
+
+  <!-- List Metrics -->
+  <dimen name="list_content_spacing">8dp</dimen>
+
+  <!-- Navigation Drawer Metrics -->
+  <dimen name="navigation_list_item">48dp</dimen>
+  <dimen name="navigation_list_content_spacing">8dp</dimen>
+  <dimen name="navigation_right_margin">56dp</dimen>
+
+  <!-- ActionBar Metrics -->
+  <dimen name="appbar_backdrop_height">256dp</dimen>
+
+  <!-- Iconography Metrics -->
+  <dimen name="icon_size">52dp</dimen>
+  <dimen name="icon_margin">8dp</dimen>
+
+  <!-- Button Metrics -->
+  <dimen name="button_height">36dp</dimen>
+  <dimen name="button_margin">12dp</dimen>
+
+  <!-- Action Metrics -->
+  <dimen name="action_size">24dp</dimen>
+  <dimen name="action_padding">8dp</dimen>
+  <dimen name="action_margin">24dp</dimen>
+
+  <!-- Card Metrics -->
+  <dimen name="card_padding">8dp</dimen>
+  <dimen name="card_margin">8dp</dimen>
+  <dimen name="card_radius">4dp</dimen>
+
+  <!-- Chip Metrics -->
+  <dimen name="chip_padding">12dp</dimen>
+  <dimen name="chip_margin">8dp</dimen>
+  <dimen name="chip_height">44dp</dimen>
+
+  <!-- Text Metrics -->
+  <dimen name="primary_text">20sp</dimen>
+  <dimen name="secondary_text">14sp</dimen>
+  <dimen name="text_spacing">4sp</dimen>
+
+</resources>

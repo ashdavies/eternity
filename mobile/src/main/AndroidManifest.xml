@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="io.ashdavies.eternity">
+
+  <uses-permission android:name="android.permission.INTERNET"/>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
+  <application android:name="io.ashdavies.eternity.Eternity"
+      android:allowBackup="false"
+      android:icon="@mipmap/ic_launcher"
+      android:label="@string/application"
+      android:supportsRtl="false"
+      android:theme="@style/Theme.Eternity">
+
+    <activity android:name="io.ashdavies.eternity.signin.SignInActivity"
+        android:theme="@style/Theme.Eternity.Fullscreen.Splash"
+        android:screenOrientation="portrait"/>
+
+    <activity android:name="io.ashdavies.eternity.chat.ChatActivity">
+
+      <intent-filter>
+        <action android:name="android.intent.action.MAIN"/>
+        <category android:name="android.intent.category.LAUNCHER"/>
+      </intent-filter>
+
+    </activity>
+
+  </application>
+
+</manifest>

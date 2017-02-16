@@ -1,0 +1,92 @@
+buildscript {
+  repositories {
+    jcenter()
+  }
+
+  dependencies {
+    classpath 'com.android.tools.build:gradle:2.3.0-rc1'
+    classpath 'com.google.gms:google-services:3.0.0'
+  }
+}
+
+apply plugin: 'com.android.application'
+
+apply from: '../dependencies.gradle'
+
+android {
+  compileSdkVersion 25
+  buildToolsVersion '25.0.2'
+
+  defaultConfig {
+    applicationId 'io.ashdavies.eternity'
+
+    /*jackOptions {
+      enabled true
+    }*/
+
+    lintOptions {
+      disable 'InvalidPackage'
+      disable 'UnusedResources'
+    }
+
+    minSdkVersion 21
+    targetSdkVersion 25
+
+    versionCode 1
+    versionName project.version
+  }
+
+  compileOptions {
+    sourceCompatibility sourceCompatibilityVersion
+    targetCompatibility targetCompatibilityVersion
+  }
+}
+
+dependencies {
+  compile libraries.android.commons
+
+  // Support
+  compile libraries.android.support.appCompat
+  compile libraries.android.support.cardView
+  compile libraries.android.support.design
+  compile libraries.android.support.recyclerView
+
+  // Google
+  compile libraries.google.play.auth
+
+  // Firebase
+  compile libraries.firebase.core
+  compile libraries.firebase.auth
+  compile libraries.firebase.database
+  compile libraries.firebase.config
+  compile libraries.firebase.crash
+
+  // RxJava
+  compile libraries.rx.java
+  compile libraries.rx.android
+  compile libraries.rx.tasks
+  compile libraries.rx.firebase
+
+  // ButterKnife
+  compile libraries.butterknife.core
+  annotationProcessor libraries.butterknife.compiler
+
+  // Dagger
+  compile libraries.dagger.core
+  annotationProcessor libraries.dagger.compiler
+
+  // UI
+  compile libraries.fab
+  compile libraries.picasso
+
+  // AutoValue
+  provided libraries.auto.value.core
+  annotationProcessor libraries.auto.value.compiler
+
+  // AutoValue: Firebase
+  compile libraries.auto.firebase.adapter
+  provided libraries.auto.firebase.core
+  annotationProcessor libraries.auto.firebase.compiler
+}
+
+apply plugin: 'com.google.gms.google-services'
