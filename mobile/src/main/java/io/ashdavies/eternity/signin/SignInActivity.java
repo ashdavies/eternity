@@ -21,10 +21,6 @@ public class SignInActivity extends AbstractApplicationActivity<TypeComponent<Si
     activity.startActivity(newIntent(activity));
   }
 
-  public static void startForSignInResult(Activity activity, Intent intent) {
-    activity.startActivityForResult(intent, RC_SIGN_IN);
-  }
-
   private static Intent newIntent(Context context) {
     return IntentUtils.newIntent(context, SignInActivity.class);
   }
@@ -80,6 +76,6 @@ public class SignInActivity extends AbstractApplicationActivity<TypeComponent<Si
 
   @OnClick(R.id.action_sign_in)
   void onLogin() {
-    presenter.signIn(this);
+    startActivityForResult(presenter.getSignInIntent(), RC_SIGN_IN);
   }
 }

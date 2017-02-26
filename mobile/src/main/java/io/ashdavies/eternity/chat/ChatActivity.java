@@ -14,6 +14,8 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 import butterknife.BindView;
+import butterknife.OnClick;
+import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.squareup.picasso.Picasso;
 import io.ashdavies.commons.adapter.AbstractAdapter;
 import io.ashdavies.commons.util.IntentUtils;
@@ -26,13 +28,15 @@ import javax.inject.Inject;
 
 public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivity>, Pair<Message, MessageState>> implements ChatPresenter.View {
 
+  private static final int RC_INVITE = 0x91;
+
   @BindView(R.id.avatar) ImageView avatar;
   @BindView(R.id.title) TextView title;
 
   @BindView(R.id.toolbar) Toolbar toolbar;
   @BindView(R.id.recycler) RecyclerView recycler;
 
-  //@BindView(R.id.actions) FloatingActionsMenu actions;
+  @BindView(R.id.actions) FloatingActionsMenu actions;
 
   @Inject ChatPresenter presenter;
 
@@ -79,6 +83,10 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   @Override
   public boolean onOptionsItemSelected(MenuItem item) {
     switch (item.getItemId()) {
+      case R.id.action_share:
+        startActivityForResult(presenter.getInviteIntent(), RC_INVITE);
+        return true;
+
       case R.id.action_sign_out:
         SignInActivity.start(this);
         finish();
@@ -125,7 +133,7 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
     recycler.scrollToPosition(0);
   }
 
-  /*@OnClick(R.id.action_house_traps)
+  @OnClick(R.id.action_house_traps)
   void onActionHouseTrapsClick() {
     presenter.post(getString(R.string.message_house_traps), null);
     actions.collapse();
@@ -135,5 +143,5 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   void onActionHorseAisleClick() {
     presenter.post(getString(R.string.message_horse_aisle), null);
     actions.collapse();
-  }*/
+  }
 }

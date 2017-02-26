@@ -7,6 +7,7 @@
   <!-- Actions -->
   <string name="action_favourite">Favourite</string>
   <string name="action_repost">Repost</string>
+  <string name="action_share">Share</string>
   <string name="action_sign_out">Sign Out</string>
 
   <!-- Messages -->
@@ -26,6 +27,11 @@
     and every tweet must be one of the two sentences.\n\n
     Randal Munroe
   ]]></string>
+
+  <!-- Invitation -->
+  <string name="invitation_title">Eternity Invite</string>
+  <string name="invitation_message">Let’s imagine a language which has only two valid sentences…</string>
+  <string name="invitation_cta">Call to action</string>
 
   <!-- Labels -->
   <string name="label_minutes">%dm</string>

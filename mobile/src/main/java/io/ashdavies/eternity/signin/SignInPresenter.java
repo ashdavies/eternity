@@ -1,6 +1,5 @@
 package io.ashdavies.eternity.signin;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import com.google.firebase.auth.AuthResult;
@@ -14,33 +13,33 @@ import javax.inject.Inject;
 
 public class SignInPresenter extends AbstractViewPresenter<SignInPresenter.View> {
 
-  private final GoogleSignInApiClient client;
+  private final GoogleSignInApi client;
 
   @Inject
-  SignInPresenter(GoogleSignInApiClient client) {
+  SignInPresenter(GoogleSignInApi client) {
     this.client = client;
   }
 
   @Override
   protected void onViewAttached(@NonNull View view) {
     client.onConnectionEvent()
-        .filter(new EqualityPredicate<>(GoogleSignInApiClient.Event.CONNECTED))
-        .doOnNext(new Consumer<GoogleSignInApiClient.Event>() {
+        .filter(new EqualityPredicate<>(GoogleSignInApi.Event.CONNECTED))
+        .doOnNext(new Consumer<GoogleSignInApi.Event>() {
           @Override
-          public void accept(@NonNull GoogleSignInApiClient.Event event) throws Exception {
+          public void accept(@NonNull GoogleSignInApi.Event event) throws Exception {
             RxFirebaseAuth.getInstance().signOut();
           }
         })
-        .subscribe(new Consumer<GoogleSignInApiClient.Event>() {
+        .subscribe(new Consumer<GoogleSignInApi.Event>() {
           @Override
-          public void accept(@NonNull GoogleSignInApiClient.Event event) throws Exception {
+          public void accept(@NonNull GoogleSignInApi.Event event) throws Exception {
             client.signOut();
           }
         });
   }
 
-  void signIn(Activity activity) {
-    SignInActivity.startForSignInResult(activity, client.getSignInIntent());
+  Intent getSignInIntent() {
+    return client.getSignInIntent();
   }
 
   void onSignIn(Intent data) {

@@ -1,13 +1,16 @@
 package io.ashdavies.eternity.chat;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
+import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import io.ashdavies.commons.presenter.AbstractViewPresenter;
 import io.ashdavies.commons.view.ListView;
 import io.ashdavies.eternity.Config;
+import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.rx.AbstractViewError;
 import io.ashdavies.rx.repository.Repository;
 import io.reactivex.disposables.CompositeDisposable;
@@ -20,10 +23,11 @@ import javax.inject.Inject;
 
 class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements MessageListener {
 
+  @Inject Config config;
+  @Inject MessageIndexer indexer;
   @Inject MessageRepository messages;
   @Inject MessageStateStorage storage;
-  @Inject MessageIndexer indexer;
-  @Inject Config config;
+  @Inject StringResolver resolver;
 
   private CompositeDisposable disposables;
 
@@ -127,6 +131,13 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
         }, new AbstractViewError<>(getView()));
 
     disposables.add(disposable);
+  }
+
+  Intent getInviteIntent() {
+    return new AppInviteInvitation.IntentBuilder(resolver.get(R.string.invitation_title))
+        .setMessage(resolver.get(R.string.invitation_message))
+        .setCallToActionText(resolver.get(R.string.invitation_cta))
+        .build();
   }
 
   public interface View extends ListView<Pair<Message, MessageState>> {

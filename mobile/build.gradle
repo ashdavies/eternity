@@ -62,6 +62,7 @@ dependencies {
   compile libraries.firebase.crash
   compile libraries.firebase.indexing
   compile libraries.firebase.messaging
+  compile libraries.firebase.invite
 
   // RxJava
   compile libraries.rx.java
