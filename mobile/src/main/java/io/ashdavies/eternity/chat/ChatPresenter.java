@@ -19,15 +19,14 @@ import javax.inject.Inject;
 
 class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements MessageListener {
 
-  private final MessageRepository messages;
-  private final MessageStateStorage storage;
+  @Inject MessageRepository messages;
+  @Inject MessageStateStorage storage;
+  @Inject MessageIndexer indexer;
 
   private CompositeDisposable disposables;
 
   @Inject
-  ChatPresenter(MessageRepository messages, MessageStateStorage storage) {
-    this.messages = messages;
-    this.storage = storage;
+  ChatPresenter() {
   }
 
   @Override
@@ -50,7 +49,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   }
 
   private void initDisposables() {
-    if (disposables != null) {
+    if (disposables != null && !disposables.isDisposed()) {
       disposables.dispose();
     }
 
@@ -59,6 +58,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
 
   private void initMessages() {
     Disposable disposable = messages.getAll()
+        .doOnNext(indexer)
         .subscribe(new Consumer<Message>() {
 
           @Override
@@ -74,6 +74,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   @Override
   protected void onViewDetached() {
     disposables.dispose();
+    disposables = null;
   }
 
   @Override

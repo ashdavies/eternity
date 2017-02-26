@@ -60,6 +60,7 @@ dependencies {
   compile libraries.firebase.database
   compile libraries.firebase.config
   compile libraries.firebase.crash
+  compile libraries.firebase.indexing
 
   // RxJava
   compile libraries.rx.java
