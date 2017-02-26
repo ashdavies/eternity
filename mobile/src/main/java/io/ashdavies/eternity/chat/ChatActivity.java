@@ -2,6 +2,7 @@ package io.ashdavies.eternity.chat;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.util.Pair;
@@ -16,9 +17,12 @@ import android.widget.TextView;
 import butterknife.BindView;
 import butterknife.OnClick;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
+import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
 import io.ashdavies.commons.adapter.AbstractAdapter;
+import io.ashdavies.commons.util.BundleUtils;
 import io.ashdavies.commons.util.IntentUtils;
+import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.activity.AbstractListActivity;
 import io.ashdavies.eternity.inject.ActivityComponentService;
@@ -39,6 +43,8 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   @BindView(R.id.actions) FloatingActionsMenu actions;
 
   @Inject ChatPresenter presenter;
+  @Inject StringResolver resolver;
+  @Inject Logger logger;
 
   public static void start(Activity activity) {
     activity.startActivity(IntentUtils.newIntent(activity, ChatActivity.class));
@@ -55,16 +61,20 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   }
 
   @Override
-  protected AbstractAdapter<? extends AbstractAdapter.ViewHolder<Pair<Message, MessageState>>, Pair<Message, MessageState>> createAdapter(Context context) {
-    return new ChatAdapter(context, presenter);
+  protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+    switch (requestCode) {
+      case RC_INVITE:
+        logger.log(FirebaseAnalytics.Event.SHARE, BundleUtils.create(FirebaseAnalytics.Param.VALUE, resultCode));
+        return;
+
+      default:
+        super.onActivityResult(requestCode, resultCode, data);
+    }
   }
 
   @Override
-  public void setAvatar(Uri uri) {
-    Picasso.with(this)
-        .load(uri)
-        .transform(new CircleTransform())
-        .into(avatar);
+  protected AbstractAdapter<? extends AbstractAdapter.ViewHolder<Pair<Message, MessageState>>, Pair<Message, MessageState>> createAdapter(Context context) {
+    return new ChatAdapter(context, presenter);
   }
 
   @Override
@@ -123,6 +133,19 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   }
 
   @Override
+  public void collapseActions() {
+    actions.collapse();
+  }
+
+  @Override
+  public void setAvatar(Uri uri) {
+    Picasso.with(this)
+        .load(uri)
+        .transform(new CircleTransform())
+        .into(avatar);
+  }
+
+  @Override
   public void startSignInActivity() {
     SignInActivity.start(this);
     finish();
@@ -135,13 +158,11 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
 
   @OnClick(R.id.action_house_traps)
   void onActionHouseTrapsClick() {
-    presenter.post(getString(R.string.message_house_traps), null);
-    actions.collapse();
+    presenter.post(resolver.get(R.string.message_house_traps), null);
   }
 
   @OnClick(R.id.action_horse_aisle)
   void onActionHorseAisleClick() {
-    presenter.post(getString(R.string.message_horse_aisle), null);
-    actions.collapse();
+    presenter.post(resolver.get(R.string.message_horse_aisle), null);
   }
 }

@@ -1,5 +1,6 @@
 package io.ashdavies.eternity.firebase;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import dagger.Module;
 import dagger.Provides;
@@ -22,7 +23,7 @@ public class FirebaseModule {
   }
 
   @Provides
-  Logger logger() {
-    return new FirebaseLogger();
+  Logger logger(Context context) {
+    return new FirebaseLogger(context);
   }
 }

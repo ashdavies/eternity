@@ -13,11 +13,10 @@ import javax.inject.Inject;
 
 public class SignInPresenter extends AbstractViewPresenter<SignInPresenter.View> {
 
-  private final GoogleSignInApi client;
+  @Inject GoogleSignInApi client;
 
   @Inject
-  SignInPresenter(GoogleSignInApi client) {
-    this.client = client;
+  SignInPresenter() {
   }
 
   @Override

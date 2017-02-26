@@ -119,9 +119,10 @@ ext {
           'database' : "com.google.firebase:firebase-database:$versions.google.play.services",
           'config'   : "com.google.firebase:firebase-config:$versions.google.play.services",
           'crash'    : "com.google.firebase:firebase-crash:$versions.google.play.services",
+          'analytics': "com.google.firebase:firebase-analytics:$versions.google.play.services",
           'indexing' : "com.google.firebase:firebase-appindexing:$versions.google.play.services",
-          'messaging': "com.google.firebase:firebase-messaging:$versions.google.play.services",
-          'invite'   : "com.google.android.gms:play-services-appinvite:$versions.google.play.services"
+          'invite'   : "com.google.android.gms:play-services-appinvite:$versions.google.play.services",
+          'messaging': "com.google.firebase:firebase-messaging:$versions.google.play.services"
 
       ],
 

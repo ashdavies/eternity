@@ -60,9 +60,10 @@ dependencies {
   compile libraries.firebase.database
   compile libraries.firebase.config
   compile libraries.firebase.crash
+  compile libraries.firebase.analytics
   compile libraries.firebase.indexing
-  compile libraries.firebase.messaging
   compile libraries.firebase.invite
+  compile libraries.firebase.messaging
 
   // RxJava
   compile libraries.rx.java

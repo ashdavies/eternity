@@ -2,14 +2,17 @@ package io.ashdavies.eternity.chat;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import io.ashdavies.commons.presenter.AbstractViewPresenter;
+import io.ashdavies.commons.util.BundleUtils;
 import io.ashdavies.commons.view.ListView;
 import io.ashdavies.eternity.Config;
+import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.rx.AbstractViewError;
 import io.ashdavies.rx.repository.Repository;
@@ -23,13 +26,14 @@ import javax.inject.Inject;
 
 class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements MessageListener {
 
+  private CompositeDisposable disposables;
+
   @Inject Config config;
-  @Inject MessageIndexer indexer;
+  @Inject Logger logger;
+
   @Inject MessageRepository messages;
   @Inject MessageStateStorage storage;
   @Inject StringResolver resolver;
-
-  private CompositeDisposable disposables;
 
   @Inject
   ChatPresenter() {
@@ -39,22 +43,22 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   protected void onViewAttached(@NonNull View view) {
     super.onViewAttached(view);
 
-    initCurrentUser();
-    initDisposables();
-    initMessages();
+    initCurrentUser(view);
+    initDisposables(view);
+    initMessages(view);
   }
 
-  private void initCurrentUser() {
+  private void initCurrentUser(View view) {
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     if (user == null) {
-      getView().startSignInActivity();
+      view.startSignInActivity();
       return;
     }
 
-    getView().setAvatar(user.getPhotoUrl());
+    view.setAvatar(user.getPhotoUrl());
   }
 
-  private void initDisposables() {
+  private void initDisposables(View view) {
     if (disposables != null && !disposables.isDisposed()) {
       disposables.dispose();
     }
@@ -62,17 +66,19 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
     disposables = new CompositeDisposable();
   }
 
-  private void initMessages() {
+  private void initMessages(final View view) {
     Disposable disposable = messages.getAll()
-        .doOnNext(indexer)
+        .doOnNext(new MessageItemLogger(logger))
+        .doOnNext(new MessageIndexer())
         .subscribe(new Consumer<Message>() {
 
           @Override
           public void accept(Message message) throws Exception {
-            getView().add(new Pair<>(message, storage.get(message.uuid())));
-            getView().scrollToTop();
+            view.add(new Pair<>(message, storage.get(message.uuid())));
+            view.collapseActions();
+            view.scrollToTop();
           }
-        }, new AbstractViewError<>(getView()));
+        }, new AbstractViewError<>(view));
 
     disposables.add(disposable);
   }
@@ -94,6 +100,10 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
       return;
     }
 
+    Bundle bundle = new Bundle();
+    bundle.putBoolean("favourite", favourite);
+    logger.log("favourite", bundle);
+
     storage.put(MessageState.create(message.uuid(), favourite), new MessageStateResolver());
   }
 
@@ -103,7 +113,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   }
 
   @Override
-  public void post(String string, @Nullable Message original) {
+  public void post(final String string, @Nullable final Message original) {
     if (original != null && !repostEnabled()) {
       return;
     }
@@ -121,6 +131,17 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
           @Override
           public String resolve(Message message) {
             return message.uuid();
+          }
+        })
+        .doOnComplete(new Action() {
+          @Override
+          public void run() throws Exception {
+            if (original != null) {
+              logger.log("repost", BundleUtils.create("text", original.text()));
+              return;
+            }
+
+            logger.log("post", BundleUtils.create("text", string));
           }
         })
         .subscribe(new Action() {
@@ -141,6 +162,8 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   }
 
   public interface View extends ListView<Pair<Message, MessageState>> {
+
+    void collapseActions();
 
     void setAvatar(Uri uri);
 
