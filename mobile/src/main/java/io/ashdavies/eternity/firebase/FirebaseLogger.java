@@ -4,7 +4,7 @@ import com.google.firebase.crash.FirebaseCrash;
 import io.ashdavies.commons.util.StringUtils;
 import io.ashdavies.eternity.Logger;
 
-public class FirebaseLogger implements Logger {
+class FirebaseLogger implements Logger {
 
   @Override
   public void error(Throwable throwable, Object... args) {

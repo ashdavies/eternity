@@ -12,6 +12,24 @@
       android:supportsRtl="false"
       android:theme="@style/Theme.Eternity">
 
+    <service android:name=".firebase.MessageService"
+        android:exported="false">
+      
+      <intent-filter>
+        <action android:name="com.google.firebase.MESSAGING_EVENT"/>
+      </intent-filter>
+
+    </service>
+
+    <service android:name=".firebase.InstanceIdService"
+        android:exported="false">
+
+      <intent-filter>
+        <action android:name="com.google.firebase.INSTANCE_ID_EVENT"/>
+      </intent-filter>
+
+    </service>
+
     <activity android:name="io.ashdavies.eternity.signin.SignInActivity"
         android:theme="@style/Theme.Eternity.Fullscreen.Splash"
         android:screenOrientation="portrait"/>

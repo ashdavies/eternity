@@ -9,7 +9,7 @@ import io.ashdavies.eternity.R;
 import io.ashdavies.rx.rxtasks.RxTasks;
 import io.reactivex.functions.Action;
 
-public class FirebaseConfig implements Config {
+class FirebaseConfig implements Config {
 
   private static final int CACHE_EXPIRATION_IN_SECONDS = 3600;
 
@@ -19,7 +19,7 @@ public class FirebaseConfig implements Config {
     this.firebase = firebase;
   }
 
-  public static FirebaseConfig newInstance() {
+  static FirebaseConfig newInstance() {
     FirebaseRemoteConfig firebase = FirebaseRemoteConfig.getInstance();
 
     firebase.setConfigSettings(buildSettings());

@@ -114,12 +114,13 @@ ext {
 
       'firebase'   : [
 
-          'core'    : "com.google.firebase:firebase-core:$versions.google.play.services",
-          'auth'    : "com.google.firebase:firebase-auth:$versions.google.play.services",
-          'database': "com.google.firebase:firebase-database:$versions.google.play.services",
-          'config'  : "com.google.firebase:firebase-config:$versions.google.play.services",
-          'crash'   : "com.google.firebase:firebase-crash:$versions.google.play.services",
-          'indexing': "com.google.firebase:firebase-appindexing:$versions.google.play.services"
+          'core'     : "com.google.firebase:firebase-core:$versions.google.play.services",
+          'auth'     : "com.google.firebase:firebase-auth:$versions.google.play.services",
+          'database' : "com.google.firebase:firebase-database:$versions.google.play.services",
+          'config'   : "com.google.firebase:firebase-config:$versions.google.play.services",
+          'crash'    : "com.google.firebase:firebase-crash:$versions.google.play.services",
+          'indexing' : "com.google.firebase:firebase-appindexing:$versions.google.play.services",
+          'messaging': "com.google.firebase:firebase-messaging:$versions.google.play.services"
 
       ],
 
