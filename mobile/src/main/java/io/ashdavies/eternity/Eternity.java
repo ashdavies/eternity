@@ -1,6 +1,7 @@
 package io.ashdavies.eternity;
 
 import android.app.Application;
+import android.content.Context;
 import android.support.annotation.NonNull;
 import com.google.firebase.database.FirebaseDatabase;
 import io.ashdavies.eternity.inject.ActivityComponentService;
@@ -12,6 +13,7 @@ import javax.inject.Inject;
 public class Eternity extends Application {
 
   @Inject ActivityComponentService service;
+  @Inject Config.State state;
 
   @Override
   public void onCreate() {
@@ -37,5 +39,13 @@ public class Eternity extends Application {
     }
 
     return super.getSystemService(name);
+  }
+
+  public Config.State getState() {
+    return state;
+  }
+
+  public static Eternity get(Context context) {
+    return (Eternity) context.getApplicationContext();
   }
 }

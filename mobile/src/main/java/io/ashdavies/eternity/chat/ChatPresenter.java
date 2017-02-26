@@ -7,6 +7,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import io.ashdavies.commons.presenter.AbstractViewPresenter;
 import io.ashdavies.commons.view.ListView;
+import io.ashdavies.eternity.Config;
 import io.ashdavies.eternity.rx.AbstractViewError;
 import io.ashdavies.rx.repository.Repository;
 import io.reactivex.disposables.CompositeDisposable;
@@ -22,6 +23,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   @Inject MessageRepository messages;
   @Inject MessageStateStorage storage;
   @Inject MessageIndexer indexer;
+  @Inject Config config;
 
   private CompositeDisposable disposables;
 
@@ -78,12 +80,30 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   }
 
   @Override
+  public boolean favouriteEnabled() {
+    return config.favouriteEnabled();
+  }
+
+  @Override
   public void favourite(Message message, boolean favourite) {
+    if (!favouriteEnabled()) {
+      return;
+    }
+
     storage.put(MessageState.create(message.uuid(), favourite), new MessageStateResolver());
   }
 
   @Override
+  public boolean repostEnabled() {
+    return config.repostEnabled();
+  }
+
+  @Override
   public void post(String string, @Nullable Message original) {
+    if (original != null && !repostEnabled()) {
+      return;
+    }
+
     Message message = Message.builder()
         .uuid(UUID.randomUUID().toString())
         .text(string)

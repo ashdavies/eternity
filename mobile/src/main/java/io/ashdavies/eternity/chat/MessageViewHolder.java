@@ -57,10 +57,14 @@ class MessageViewHolder extends AbstractAdapter.ViewHolder<Pair<Message, Message
         .into(avatar);
 
     favourite.setChecked(pair.second.favourite());
+    favourite.setVisibility(listener.favouriteEnabled() ? View.VISIBLE : View.GONE);
+
     author.setText(message.author().name());
     text.setText(message.text());
 
     repost.setOnClickListener(new RepostClickListener(listener, message));
+    repost.setVisibility(listener.repostEnabled() ? View.VISIBLE : View.GONE);
+
     favourite.setOnClickListener(new FavouriteClickListener(listener, message));
 
     ago.setText(formatter.format(System.currentTimeMillis() - message.created()));

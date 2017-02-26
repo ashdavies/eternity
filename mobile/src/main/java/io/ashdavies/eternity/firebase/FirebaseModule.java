@@ -1,5 +1,6 @@
 package io.ashdavies.eternity.firebase;
 
+import android.content.SharedPreferences;
 import dagger.Module;
 import dagger.Provides;
 import io.ashdavies.eternity.Config;
@@ -10,13 +11,18 @@ import io.ashdavies.eternity.inject.ApplicationScope;
 public class FirebaseModule {
 
   @Provides
-  @ApplicationScope
-  public Config config() {
-    return FirebaseConfig.newInstance();
+  Config.State state(SharedPreferences preferences) {
+    return new ConfigStateStorage(preferences);
   }
 
   @Provides
-  public Logger logger() {
+  @ApplicationScope
+  Config config(Config.State state) {
+    return FirebaseConfig.newInstance(state);
+  }
+
+  @Provides
+  Logger logger() {
     return new FirebaseLogger();
   }
 }

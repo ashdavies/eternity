@@ -4,7 +4,11 @@ import javax.annotation.Nullable;
 
 interface MessageListener {
 
-  void post(String string, @Nullable Message message);
+  boolean favouriteEnabled();
 
   void favourite(Message message, boolean favourite);
+
+  boolean repostEnabled();
+
+  void post(String string, @Nullable Message message);
 }

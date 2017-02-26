@@ -8,24 +8,30 @@ import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import io.ashdavies.rx.rxtasks.RxTasks;
 import io.reactivex.functions.Action;
+import java.util.concurrent.TimeUnit;
 
 class FirebaseConfig implements Config {
 
-  private static final int CACHE_EXPIRATION_IN_SECONDS = 3600;
+  private static final long CACHE_EXPIRATION_IN_SECONDS = TimeUnit.HOURS.toMillis(1);
+
+  private static final String OPTION_FAVOURITE_ENABLED = "favourite_enabled";
+  private static final String OPTION_REPOST_ENABLED = "repost_enabled";
 
   private final FirebaseRemoteConfig firebase;
+  private final Config.State state;
 
-  private FirebaseConfig(FirebaseRemoteConfig firebase) {
+  private FirebaseConfig(FirebaseRemoteConfig firebase, Config.State state) {
     this.firebase = firebase;
+    this.state = state;
   }
 
-  static FirebaseConfig newInstance() {
+  static FirebaseConfig newInstance(Config.State storage) {
     FirebaseRemoteConfig firebase = FirebaseRemoteConfig.getInstance();
 
     firebase.setConfigSettings(buildSettings());
     firebase.setDefaults(R.xml.remote_config_defaults);
 
-    return new FirebaseConfig(firebase);
+    return new FirebaseConfig(firebase, storage);
   }
 
   private static FirebaseRemoteConfigSettings buildSettings() {
@@ -36,17 +42,32 @@ class FirebaseConfig implements Config {
 
   @Override
   public void prepare(Logger logger) {
-    if (firebase.getInfo().getLastFetchStatus() == FirebaseRemoteConfig.LAST_FETCH_STATUS_SUCCESS) {
-      return;
-    }
-
-    RxTasks.completable(firebase.fetch(CACHE_EXPIRATION_IN_SECONDS))
+    RxTasks.completable(firebase.fetch(getCacheExpirationInSeconds()))
         .subscribe(new Action() {
 
           @Override
           public void run() throws Exception {
             firebase.activateFetched();
+            state.reset();
           }
         }, new LoggerError(logger));
+  }
+
+  private long getCacheExpirationInSeconds() {
+    if (state.invalidated()) {
+      return 0;
+    }
+
+    return CACHE_EXPIRATION_IN_SECONDS;
+  }
+
+  @Override
+  public boolean favouriteEnabled() {
+    return firebase.getBoolean(OPTION_FAVOURITE_ENABLED);
+  }
+
+  @Override
+  public boolean repostEnabled() {
+    return firebase.getBoolean(OPTION_REPOST_ENABLED);
   }
 }

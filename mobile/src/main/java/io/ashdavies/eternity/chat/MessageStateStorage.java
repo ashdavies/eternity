@@ -1,5 +1,6 @@
 package io.ashdavies.eternity.chat;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 import io.ashdavies.commons.storage.Storage;
 import java.util.Collection;
@@ -8,10 +9,16 @@ import javax.inject.Inject;
 
 class MessageStateStorage implements Storage<String, MessageState> {
 
+  private static final String SHARED_PREFERENCES_NAME = "io.ashdavies.eternity.message.state";
+
   private final SharedPreferences preferences;
 
   @Inject
-  MessageStateStorage(SharedPreferences preferences) {
+  MessageStateStorage(Context context) {
+    this(context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE));
+  }
+
+  private MessageStateStorage(SharedPreferences preferences) {
     this.preferences = preferences;
   }
 
