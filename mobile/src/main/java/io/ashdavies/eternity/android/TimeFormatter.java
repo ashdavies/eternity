@@ -26,12 +26,14 @@ public class TimeFormatter implements StringFormatter<Long> {
 
   @Override
   public String format(Long millis) {
-    if (millis < TimeUnit.HOURS.toMillis(1)) {
-      return resolver.get(R.string.label_minutes, TimeUnit.MILLISECONDS.toMinutes(millis));
+    long diff = System.currentTimeMillis() - millis;
+
+    if (diff < TimeUnit.HOURS.toMillis(1)) {
+      return resolver.get(R.string.label_minutes, Math.max(1, TimeUnit.MILLISECONDS.toMinutes(diff)));
     }
 
-    if (millis < TimeUnit.DAYS.toMillis(1)) {
-      return resolver.get(R.string.label_hours, TimeUnit.MILLISECONDS.toHours(millis));
+    if (diff < TimeUnit.DAYS.toMillis(1)) {
+      return resolver.get(R.string.label_hours, Math.max(1, TimeUnit.MILLISECONDS.toHours(diff)));
     }
 
     return format.format(new Date(millis));

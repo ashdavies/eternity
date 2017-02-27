@@ -71,7 +71,7 @@ class MessageViewHolder extends AbstractAdapter.ViewHolder<Pair<Message, Message
 
     favourite.setOnClickListener(new FavouriteClickListener(listener, message));
 
-    ago.setText(formatter.format(System.currentTimeMillis() - message.created()));
+    ago.setText(formatter.format(message.created()));
   }
 
   private static class RepostClickListener implements Button.OnClickListener {

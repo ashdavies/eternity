@@ -91,6 +91,11 @@ dependencies {
   compile libraries.auto.firebase.adapter
   provided libraries.auto.firebase.core
   annotationProcessor libraries.auto.firebase.compiler
+
+  // Testing
+  testCompile libraries.jUnit
+  testCompile libraries.truth
+  testCompile libraries.mockito
 }
 
 apply plugin: 'com.google.gms.google-services'
