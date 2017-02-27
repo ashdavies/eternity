@@ -4,41 +4,43 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapShader;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.graphics.RectF;
+import android.graphics.Shader;
 import com.squareup.picasso.Transformation;
 
 class CircleTransform implements Transformation {
 
-  private static final String KEY = "circle";
+  private final int radius;
+  private final int margin;
+
+  CircleTransform(int radius) {
+    this(radius, 0);
+  }
+
+  private CircleTransform(int radius, int margin) {
+    this.radius = radius;
+    this.margin = margin;
+  }
 
   @Override
   public Bitmap transform(Bitmap source) {
-    int size = Math.min(source.getWidth(), source.getHeight());
+    final Paint paint = new Paint();
+    paint.setAntiAlias(true);
+    paint.setShader(new BitmapShader(source, Shader.TileMode.CLAMP, Shader.TileMode.CLAMP));
 
-    int x = (source.getWidth() - size) / 2;
-    int y = (source.getHeight() - size) / 2;
+    Bitmap output = Bitmap.createBitmap(source.getWidth(), source.getHeight(), Bitmap.Config.ARGB_8888);
+    Canvas canvas = new Canvas(output);
+    canvas.drawRoundRect(new RectF(margin, margin, source.getWidth() - margin, source.getHeight() - margin), radius, radius, paint);
 
-    Bitmap squaredBitmap = Bitmap.createBitmap(source, x, y, size, size);
-    if (squaredBitmap != source) {
+    if (source != output) {
       source.recycle();
     }
 
-    Bitmap bitmap = Bitmap.createBitmap(size, size, source.getConfig());
-
-    Canvas canvas = new Canvas(bitmap);
-    Paint paint = new Paint();
-    BitmapShader shader = new BitmapShader(squaredBitmap, BitmapShader.TileMode.CLAMP, BitmapShader.TileMode.CLAMP);
-    paint.setShader(shader);
-    paint.setAntiAlias(true);
-
-    float r = size / 2f;
-    canvas.drawCircle(r, r, r, paint);
-
-    squaredBitmap.recycle();
-    return bitmap;
+    return output;
   }
 
   @Override
   public String key() {
-    return KEY;
+    return "rounded(radius=" + radius + ", margin=" + margin + ")";
   }
 }

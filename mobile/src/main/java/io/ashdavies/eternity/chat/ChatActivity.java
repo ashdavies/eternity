@@ -143,7 +143,7 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   public void setAvatar(Uri uri) {
     Picasso.with(this)
         .load(uri)
-        .transform(new CircleTransform())
+        .transform(new CircleTransform(56))
         .into(avatar);
   }
 

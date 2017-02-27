@@ -47,17 +47,17 @@ class MessageViewHolder extends AbstractAdapter.ViewHolder<Pair<Message, Message
   @Override
   protected void bind(Pair<Message, MessageState> pair) {
     Message message = pair.first;
-    Message original = message.original();
 
-    if (original != null) {
-      reposted.setText(resolver.get(R.string.label_reposted, original.author().name()));
+    if (message.original() != null) {
+      reposted.setText(resolver.get(R.string.label_reposted, message.author().name()));
       reposted.setVisibility(View.VISIBLE);
 
-      message = original;
+      message = message.original();
     }
 
     Picasso.with(getContext())
         .load(message.author().avatar())
+        .transform(new CircleTransform(12))
         .into(avatar);
 
     favourite.setChecked(pair.second.favourite());
