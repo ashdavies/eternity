@@ -34,7 +34,7 @@ public class SignInPresenter extends AbstractViewPresenter<SignInPresenter.View>
           public void accept(@NonNull GoogleSignInApi.Event event) throws Exception {
             client.signOut();
           }
-        });
+        }, new AbstractViewError<>(getView()));
   }
 
   Intent getSignInIntent() {

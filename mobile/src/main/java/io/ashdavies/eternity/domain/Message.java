@@ -1,4 +1,4 @@
-package io.ashdavies.eternity.chat;
+package io.ashdavies.eternity.domain;
 
 import com.google.auto.value.AutoValue;
 import com.google.firebase.database.DataSnapshot;
@@ -7,7 +7,7 @@ import me.mattlogan.auto.value.firebase.annotation.FirebaseValue;
 
 @AutoValue
 @FirebaseValue
-abstract class Message {
+public abstract class Message {
 
   public abstract String uuid();
   public abstract String text();

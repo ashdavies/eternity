@@ -9,6 +9,7 @@ import dagger.Module;
 import dagger.Provides;
 import io.ashdavies.commons.view.AbstractView;
 import io.ashdavies.eternity.R;
+import io.ashdavies.eternity.google.ConnectionFailedException;
 import io.ashdavies.eternity.inject.ActivityScope;
 import io.ashdavies.eternity.inject.TypeModule;
 
@@ -50,17 +51,4 @@ public class SignInModule extends TypeModule<SignInActivity> {
     }
   }
 
-  private static class ConnectionFailedException extends Throwable {
-
-    private final ConnectionResult result;
-
-    ConnectionFailedException(ConnectionResult result) {
-      super(result.getErrorMessage());
-      this.result = result;
-    }
-
-    public ConnectionResult getResult() {
-      return result;
-    }
-  }
 }

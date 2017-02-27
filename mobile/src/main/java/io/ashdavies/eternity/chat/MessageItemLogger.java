@@ -4,6 +4,7 @@ import android.support.annotation.NonNull;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import io.ashdavies.commons.util.BundleUtils;
 import io.ashdavies.eternity.Logger;
+import io.ashdavies.eternity.domain.Message;
 import io.reactivex.functions.Consumer;
 
 class MessageItemLogger implements Consumer<Message> {

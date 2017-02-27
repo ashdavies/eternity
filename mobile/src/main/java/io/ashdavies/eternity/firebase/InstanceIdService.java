@@ -5,11 +5,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 
 public class InstanceIdService extends FirebaseInstanceIdService {
 
-  private static final String FRIENDLY_ENGAGE_TOPIC = "friendly_engage";
+  private static final String ENGAGE_ETERNITY = "eternity_engage";
 
   @Override
   public void onTokenRefresh() {
     FirebaseMessaging.getInstance()
-        .subscribeToTopic(FRIENDLY_ENGAGE_TOPIC);
+        .subscribeToTopic(ENGAGE_ETERNITY);
   }
 }

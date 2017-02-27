@@ -25,6 +25,8 @@ import io.ashdavies.commons.util.IntentUtils;
 import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.activity.AbstractListActivity;
+import io.ashdavies.eternity.android.StringResolver;
+import io.ashdavies.eternity.domain.Message;
 import io.ashdavies.eternity.inject.ActivityComponentService;
 import io.ashdavies.eternity.inject.TypeComponent;
 import io.ashdavies.eternity.signin.SignInActivity;

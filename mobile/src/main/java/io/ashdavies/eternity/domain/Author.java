@@ -1,4 +1,4 @@
-package io.ashdavies.eternity.chat;
+package io.ashdavies.eternity.domain;
 
 import android.net.Uri;
 import com.google.auto.value.AutoValue;
@@ -8,7 +8,7 @@ import me.mattlogan.auto.value.firebase.annotation.FirebaseValue;
 
 @AutoValue
 @FirebaseValue
-abstract class Author {
+public abstract class Author {
 
   public abstract String uuid();
   public abstract String name();

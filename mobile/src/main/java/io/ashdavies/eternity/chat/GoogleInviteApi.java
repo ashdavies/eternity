@@ -20,12 +20,12 @@ class GoogleInviteApi extends GoogleApiProcessor {
   }
 
   @Override
-  protected void connect() {
+  public void connect() {
     client.connect();
   }
 
   @Override
-  protected void disconnect() {
+  public void disconnect() {
     client.disconnect();
   }
 }

@@ -8,6 +8,7 @@ import com.google.firebase.appindexing.builders.Indexables;
 import com.google.firebase.appindexing.builders.PersonBuilder;
 import com.google.firebase.auth.FirebaseAuth;
 import io.ashdavies.commons.util.StringUtils;
+import io.ashdavies.eternity.domain.Message;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
 

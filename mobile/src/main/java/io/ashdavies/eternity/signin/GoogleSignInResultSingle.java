@@ -4,6 +4,7 @@ import android.content.Intent;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
+import io.ashdavies.eternity.google.GoogleSignInException;
 import io.reactivex.Single;
 import io.reactivex.SingleEmitter;
 import io.reactivex.SingleOnSubscribe;
@@ -28,19 +29,5 @@ class GoogleSignInResultSingle implements SingleOnSubscribe<GoogleSignInAccount>
     }
 
     emitter.onSuccess(result.getSignInAccount());
-  }
-
-  private static class GoogleSignInException extends Throwable {
-
-    private final GoogleSignInResult result;
-
-    GoogleSignInException(GoogleSignInResult result) {
-      super(result.getStatus().getStatusMessage());
-      this.result = result;
-    }
-
-    public GoogleSignInResult getResult() {
-      return result;
-    }
   }
 }

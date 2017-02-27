@@ -1,5 +1,6 @@
 package io.ashdavies.eternity.chat;
 
+import io.ashdavies.eternity.domain.Message;
 import javax.annotation.Nullable;
 
 interface MessageListener {

@@ -13,6 +13,10 @@ import butterknife.ButterKnife;
 import com.squareup.picasso.Picasso;
 import io.ashdavies.commons.adapter.AbstractAdapter;
 import io.ashdavies.eternity.R;
+import io.ashdavies.eternity.android.StringFormatter;
+import io.ashdavies.eternity.android.StringResolver;
+import io.ashdavies.eternity.android.TimeFormatter;
+import io.ashdavies.eternity.domain.Message;
 
 class MessageViewHolder extends AbstractAdapter.ViewHolder<Pair<Message, MessageState>> {
 

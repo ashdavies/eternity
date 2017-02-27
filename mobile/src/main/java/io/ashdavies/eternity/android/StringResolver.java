@@ -1,19 +1,19 @@
-package io.ashdavies.eternity.chat;
+package io.ashdavies.eternity.android;
 
 import android.content.res.Resources;
 import android.support.annotation.StringRes;
 import javax.inject.Inject;
 
-class StringResolver {
+public class StringResolver {
 
   private final Resources resources;
 
   @Inject
-  StringResolver(Resources resources) {
+  public StringResolver(Resources resources) {
     this.resources = resources;
   }
 
-  String get(@StringRes int resId, Object... args) {
+  public String get(@StringRes int resId, Object... args) {
     return resources.getString(resId, args);
   }
 }

@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import io.ashdavies.commons.adapter.AbstractAdapter;
 import io.ashdavies.eternity.R;
+import io.ashdavies.eternity.domain.Message;
 
 class ChatAdapter extends AbstractAdapter<MessageViewHolder, Pair<Message, MessageState>> {
 

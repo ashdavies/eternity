@@ -1,4 +1,4 @@
-package io.ashdavies.eternity.chat;
+package io.ashdavies.eternity.android;
 
 import io.ashdavies.eternity.R;
 import java.text.SimpleDateFormat;
@@ -7,15 +7,21 @@ import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 import javax.inject.Inject;
 
-class TimeFormatter implements StringFormatter<Long> {
+public class TimeFormatter implements StringFormatter<Long> {
 
-  private static final SimpleDateFormat FORMAT = new SimpleDateFormat("MMM dd", Locale.getDefault());
+  private static final String FORMAT = "MMM dd";
 
   private final StringResolver resolver;
+  private final SimpleDateFormat format;
 
   @Inject
-  TimeFormatter(StringResolver resolver) {
+  public TimeFormatter(StringResolver resolver) {
+    this(resolver, new SimpleDateFormat(FORMAT, Locale.getDefault()));
+  }
+
+  private TimeFormatter(StringResolver resolver, SimpleDateFormat format) {
     this.resolver = resolver;
+    this.format = format;
   }
 
   @Override
@@ -28,6 +34,6 @@ class TimeFormatter implements StringFormatter<Long> {
       return resolver.get(R.string.label_hours, TimeUnit.MILLISECONDS.toHours(millis));
     }
 
-    return FORMAT.format(new Date(millis));
+    return format.format(new Date(millis));
   }
 }

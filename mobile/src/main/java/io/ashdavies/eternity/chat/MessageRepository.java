@@ -1,5 +1,6 @@
 package io.ashdavies.eternity.chat;
 
+import io.ashdavies.eternity.domain.Message;
 import io.ashdavies.rx.repository.Repository;
 import io.ashdavies.rx.rxfirebase.ChildEvent;
 import io.ashdavies.rx.rxfirebase.RxFirebaseDatabase;

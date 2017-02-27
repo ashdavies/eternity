@@ -4,13 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import io.ashdavies.eternity.rx.ConnectOnSubscribe;
+import io.ashdavies.eternity.rx.DisconnectOnCancel;
 import io.reactivex.Flowable;
 import io.reactivex.processors.ReplayProcessor;
 import javax.annotation.Nullable;
 
-public abstract class GoogleApiProcessor implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
+public abstract class GoogleApiProcessor implements ConnectOnSubscribe.Connectable, DisconnectOnCancel.Disconnectable, GoogleApiClient.ConnectionCallbacks,
+    GoogleApiClient.OnConnectionFailedListener {
 
-  private final ReplayProcessor<GoogleApiProcessor.Event> processor;
+  private final ReplayProcessor<Event> processor;
 
   protected GoogleApiProcessor() {
     this(ReplayProcessor.<GoogleApiProcessor.Event>create());
@@ -31,18 +34,14 @@ public abstract class GoogleApiProcessor implements GoogleApiClient.ConnectionCa
 
   @Override
   public void onConnectionFailed(@NonNull ConnectionResult result) {
-    processor.onError(new Throwable(result.getErrorMessage()));
+    processor.onError(new ConnectionFailedException(result));
   }
 
-  public Flowable<GoogleApiProcessor.Event> onConnectionEvent() {
+  public Flowable<Event> onConnectionEvent() {
     return processor
         .doOnSubscribe(new ConnectOnSubscribe(this))
         .doOnCancel(new DisconnectOnCancel(this));
   }
-
-  protected abstract void connect();
-
-  protected abstract void disconnect();
 
   public enum Event {
     CONNECTED,
