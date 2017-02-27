@@ -10,14 +10,14 @@
 
 Find out whats going on around your world this second, from houses full of traps, to horses in aisle five.
 It can be happening everywhere, get full coverage of these breaking events in real time.
-
 Take part in the awesomeness, make contributions and tell the whole world what is really important to you!
 
 ### Features:
- * Real time 'chat' with not only one useful sentence, but two spectacular phrases!
+ * Real time 'chat' with not only one useful sentence but two spectacular phrases!
  * Don't like forms? No problem! Authenticate using your Google account!
  * Like a post? Awesome, mark it as your favourite so you can check it later!
- * Think your friends might like a post? Repost it! Your friends will see how awesome you are!
+ * Think your friends might like a post? Be a trendsetter and repost it!
+ * Love the app? Share it with your friends so they know how awesome you are!
 
 [![Google Play](https://raw.githubusercontent.com/ashdavies/eternity/master/art/google-play-badge.png)](https://play.google.com/store/apps/details?id=io.ashdavies.eternity)  
 *Google Play and the Google Play logo are trademarks of Google Inc.*
@@ -26,7 +26,6 @@ Take part in the awesomeness, make contributions and tell the whole world what i
 
 Please Note! This application is a parody and should not be treated seriously.
 
-Source code is freely available on GitHub 
-![GitHub](https://github.com/ashdavies/eternity)
+The source code for this Firebase sample application is available on [GitHub](https://github.com/ashdavies/eternity) 
 
 Based upon the What If web comic [#34](https://what-if.xkcd.com/34/) by Randal Munroe.

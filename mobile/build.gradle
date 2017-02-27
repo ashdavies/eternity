@@ -29,7 +29,7 @@ android {
       disable 'UnusedResources'
     }
 
-    minSdkVersion 21
+    minSdkVersion 16
     targetSdkVersion 25
 
     versionCode 3

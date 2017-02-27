@@ -75,8 +75,7 @@
           android:orientation="horizontal">
 
         <ImageButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Theme.Eternity.Button.Borderless"
             android:id="@+id/repost"
             android:contentDescription="@string/action_repost"
             android:layout_width="wrap_content"
@@ -85,8 +84,7 @@
             android:src="@drawable/ic_repost"/>
 
         <ToggleButton
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:background="?android:attr/selectableItemBackgroundBorderless"
+            style="@style/Theme.Eternity.Button.Borderless"
             android:id="@+id/favourite"
             android:contentDescription="@string/action_favourite"
             android:button="@drawable/ic_favourite_selector"
@@ -96,7 +94,6 @@
             android:textOff="@null"/>
 
       </LinearLayout>
-
     </LinearLayout>
   </LinearLayout>
 </LinearLayout>

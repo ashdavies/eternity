@@ -14,10 +14,7 @@
   </style>
 
   <!-- Fullscreen Themes -->
-  <style name="Theme.Eternity.Fullscreen" parent="Theme.Eternity">
-    <item name="android:windowTranslucentStatus">true</item>
-    <item name="android:windowTranslucentNavigation">true</item>
-  </style>
+  <style name="Theme.Eternity.Fullscreen" parent="Theme.Eternity"/>
 
   <style name="Theme.Eternity.Fullscreen.Splash" parent="Theme.Eternity.Fullscreen">
     <item name="android:windowBackground">@drawable/splash_background</item>
@@ -55,6 +52,8 @@
     <item name="android:textColor">@color/icons</item>
   </style>
 
+  <style name="Theme.Eternity.Button.Borderless" parent="Widget.AppCompat.Button.Borderless"/>
+
   <style name="Theme.Eternity.Button.Colored" parent="Widget.AppCompat.Button.Colored">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
@@ -87,8 +86,8 @@
   <style name="Theme.Eternity.TextAppearance.Headline" parent="TextAppearance.AppCompat.Headline">
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
-    <item name="android:layout_marginStart">@dimen/default_margin</item>
-    <item name="android:layout_marginEnd">@dimen/default_margin</item>
+    <item name="android:layout_marginLeft">@dimen/default_margin</item>
+    <item name="android:layout_marginRight">@dimen/default_margin</item>
     <item name="android:gravity">center_horizontal</item>
 
     <item name="android:textColor">@color/primary_text</item>
@@ -111,8 +110,8 @@
     <item name="android:layout_width">match_parent</item>
     <item name="android:layout_height">wrap_content</item>
     <item name="android:layout_marginTop">@dimen/list_content_spacing</item>
-    <item name="android:layout_marginEnd">@dimen/default_margin</item>
+    <item name="android:layout_marginRight">@dimen/default_margin</item>
     <item name="android:layout_marginBottom">@dimen/list_content_spacing</item>
-    <item name="android:layout_marginStart">@dimen/default_margin</item>
+    <item name="android:layout_marginLeft">@dimen/default_margin</item>
   </style>
 </resources>
