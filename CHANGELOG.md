@@ -1,6 +1,12 @@
 Change Log
 ==========
 
+Version 1.4.0 *(2017-03-02)*
+----------------------------
+
+ * Introduced gradle utils
+ * Apply query ordering
+ 
 Version 1.3.0 *(2017-02-28)*
 ----------------------------
 

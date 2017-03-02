@@ -36,8 +36,8 @@ android {
     minSdkVersion 16
     targetSdkVersion 25
 
-    versionCode versionCode()
-    versionName versionName()
+    versionCode getVersionCode('../build.properties')
+    versionName getVersionName('../build.properties')
   }
 
   compileOptions {

@@ -22,7 +22,10 @@ Take part in the awesomeness, make contributions and tell the whole world what i
  * Think your friends might like a post? Be a trendsetter and repost it!
  * Love the app? Share it with your friends so they know how awesome you are!
 
-<a href='https://play.google.com/store/apps/details?id=io.ashdavies.eternity&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'><img alt='Get it on Google Play' src='https://raw.githubusercontent.com/ashdavies/eternity/master/art/google-play-badge.png'/></a>
+<a href='https://play.google.com/store/apps/details?id=io.ashdavies.eternity&pcampaignid=MKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1'>
+  <img width="25%" height="25%" alt='Get it on Google Play' src='https://raw.githubusercontent.com/ashdavies/eternity/master/art/google-play-badge.png'/>
+</a>
+<br />
 <sub>Android, Google Play and the Google Play logo are trademarks of Google Inc.</sub>
 
 ------------------------------------------------------------------------------

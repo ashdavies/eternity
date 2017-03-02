@@ -1,4 +1,4 @@
-def load(String path) {
+def getProperties(String path) {
   Properties properties = new Properties()
   file(path).withInputStream { stream ->
     properties.load(stream)
@@ -6,7 +6,7 @@ def load(String path) {
   return properties;
 }
 
-def gitHash = { ->
+def getGitHash = { ->
   def stdout = new ByteArrayOutputStream()
   exec {
     commandLine 'git', 'rev-parse', '--short', 'HEAD'
@@ -15,7 +15,7 @@ def gitHash = { ->
   return stdout.toString().trim()
 }
 
-def gitTag = { ->
+def getGitTag = { ->
   def stdout = new ByteArrayOutputStream()
   exec {
     commandLine 'git', 'describe', '--tags'
@@ -24,20 +24,20 @@ def gitTag = { ->
   return stdout.toString().trim()
 }
 
-def versionCode(String path) {
-  return load(path)['version.code']
+def getVersionCode(String path) {
+  return Integer.valueOf(getProperties(path)['version.code'].toString())
 }
 
-def versionName(String path) {
-  return load(path)['version.name']
+def getVersionName(String path) {
+  return getProperties(path)['version.name']
 }
 
 ext {
-  load = this.&load
+  getProperties = this.&getProperties
 
-  gitHash = this.&gitHash
-  gitTag = this.&gitTag
+  getGitHash = this.&getGitHash
+  getgitTag = this.&getGitTag
 
-  versionCode = this.&versionCode
-  versionName = this.&versionName
+  getVersionCode = this.&getVersionCode
+  getVersionName = this.&getVersionName
 }
