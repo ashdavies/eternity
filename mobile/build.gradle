@@ -6,12 +6,16 @@ buildscript {
   dependencies {
     classpath 'com.android.tools.build:gradle:2.3.0-rc1'
     classpath 'com.google.gms:google-services:3.0.0'
+
+    classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
   }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'jacoco-android'
 
 apply from: '../dependencies.gradle'
+apply from: '../utils.gradle'
 
 android {
   compileSdkVersion 25
@@ -32,8 +36,8 @@ android {
     minSdkVersion 16
     targetSdkVersion 25
 
-    versionCode 4
-    versionName project.version
+    versionCode versionCode()
+    versionName versionName()
   }
 
   compileOptions {
