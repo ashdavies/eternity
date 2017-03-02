@@ -22,8 +22,8 @@ import com.squareup.picasso.Picasso;
 import io.ashdavies.commons.adapter.AbstractAdapter;
 import io.ashdavies.commons.util.BundleUtils;
 import io.ashdavies.commons.util.IntentUtils;
-import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
+import io.ashdavies.eternity.Reporting;
 import io.ashdavies.eternity.activity.AbstractListActivity;
 import io.ashdavies.eternity.android.StringResolver;
 import io.ashdavies.eternity.domain.Message;
@@ -46,7 +46,7 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
 
   @Inject ChatPresenter presenter;
   @Inject StringResolver resolver;
-  @Inject Logger logger;
+  @Inject Reporting reporting;
 
   public static void start(Activity activity) {
     activity.startActivity(IntentUtils.newIntent(activity, ChatActivity.class));
@@ -66,7 +66,7 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
     switch (requestCode) {
       case RC_INVITE:
-        logger.log(FirebaseAnalytics.Event.SHARE, BundleUtils.create(FirebaseAnalytics.Param.VALUE, resultCode));
+        reporting.log(FirebaseAnalytics.Event.SHARE, BundleUtils.create(FirebaseAnalytics.Param.VALUE, resultCode));
         return;
 
       default:

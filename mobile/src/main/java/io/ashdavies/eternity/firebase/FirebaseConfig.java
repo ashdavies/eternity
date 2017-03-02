@@ -25,13 +25,13 @@ class FirebaseConfig implements Config {
     this.state = state;
   }
 
-  static FirebaseConfig newInstance(Config.State storage) {
+  static FirebaseConfig newInstance(Config.State state) {
     FirebaseRemoteConfig firebase = FirebaseRemoteConfig.getInstance();
 
     firebase.setConfigSettings(buildSettings());
     firebase.setDefaults(R.xml.remote_config_defaults);
 
-    return new FirebaseConfig(firebase, storage);
+    return new FirebaseConfig(firebase, state);
   }
 
   private static FirebaseRemoteConfigSettings buildSettings() {

@@ -5,6 +5,7 @@ Version 1.3.0 *(2017-02-28)*
 ----------------------------
 
  * Reduced minSdk version
+ * Improved reporting
  
 Version 1.2.0 *(2017-02-27)*
 ----------------------------

@@ -2,17 +2,14 @@ package io.ashdavies.eternity.chat;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.util.Pair;
 import com.google.android.gms.appinvite.AppInviteInvitation;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import io.ashdavies.commons.presenter.AbstractViewPresenter;
-import io.ashdavies.commons.util.BundleUtils;
 import io.ashdavies.commons.view.ListView;
 import io.ashdavies.eternity.Config;
-import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.android.StringResolver;
 import io.ashdavies.eternity.domain.Author;
@@ -32,9 +29,10 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   private CompositeDisposable disposables;
 
   @Inject Config config;
-  @Inject Logger logger;
 
+  @Inject MessageIndexer indexer;
   @Inject MessageRepository messages;
+  @Inject MessageReporting reporting;
   @Inject MessageStateStorage storage;
   @Inject StringResolver resolver;
 
@@ -71,8 +69,8 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
 
   private void initMessages(final View view) {
     Disposable disposable = messages.getAll()
-        .doOnNext(new MessageItemLogger(logger))
-        .doOnNext(new MessageIndexer())
+        .doOnNext(reporting)
+        .doOnNext(indexer)
         .subscribe(new Consumer<Message>() {
 
           @Override
@@ -103,10 +101,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
       return;
     }
 
-    Bundle bundle = new Bundle();
-    bundle.putBoolean("favourite", favourite);
-    logger.log("favourite", bundle);
-
+    reporting.favourite(message.text(), favourite);
     storage.put(MessageState.create(message.uuid(), favourite), new MessageStateResolver());
   }
 
@@ -140,11 +135,11 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
           @Override
           public void run() throws Exception {
             if (original != null) {
-              logger.log("repost", BundleUtils.create("text", original.text()));
+              reporting.repost(original.text());
               return;
             }
 
-            logger.log("post", BundleUtils.create("text", string));
+            reporting.post(string);
           }
         })
         .subscribe(new Action() {

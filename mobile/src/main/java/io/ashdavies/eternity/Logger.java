@@ -1,10 +1,8 @@
 package io.ashdavies.eternity;
 
-import android.os.Bundle;
-
 public interface Logger {
 
-  void log(String message, Bundle bundle);
+  void log(String message);
 
   void error(Throwable throwable, Object... args);
 

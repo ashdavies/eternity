@@ -11,10 +11,15 @@ import io.ashdavies.commons.util.StringUtils;
 import io.ashdavies.eternity.domain.Message;
 import io.reactivex.annotations.NonNull;
 import io.reactivex.functions.Consumer;
+import javax.inject.Inject;
 
 class MessageIndexer implements Consumer<Message> {
 
   private static final String MESSAGE_URL = "https://eternity.ashdavies.io/message";
+
+  @Inject
+  MessageIndexer() {
+  }
 
   @Override
   public void accept(@NonNull Message message) throws Exception {
