@@ -1,30 +1,31 @@
 package io.ashdavies.eternity.signin;
 
-import android.content.Context;
+import android.app.Application;
 import android.content.Intent;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 import io.ashdavies.eternity.R;
+import io.ashdavies.eternity.android.StringResolver;
 import io.ashdavies.eternity.google.GoogleApiProcessor;
 import javax.inject.Inject;
 
-public class GoogleSignInApi extends GoogleApiProcessor {
+class GoogleSignInApi extends GoogleApiProcessor {
 
   private final GoogleApiClient client;
 
   @Inject
-  GoogleSignInApi(Context context) {
-    client = new GoogleApiClient.Builder(context)
+  GoogleSignInApi(Application application, StringResolver resolver) {
+    client = new GoogleApiClient.Builder(application)
         .addConnectionCallbacks(this)
         .addOnConnectionFailedListener(this)
-        .addApi(Auth.GOOGLE_SIGN_IN_API, createGoogleSignInOptions(context))
+        .addApi(Auth.GOOGLE_SIGN_IN_API, createGoogleSignInOptions(resolver))
         .build();
   }
 
-  private GoogleSignInOptions createGoogleSignInOptions(Context context) {
+  private GoogleSignInOptions createGoogleSignInOptions(StringResolver resolver) {
     return new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-        .requestIdToken(context.getString(R.string.default_web_client_id))
+        .requestIdToken(resolver.get(R.string.default_web_client_id))
         .requestEmail()
         .build();
   }

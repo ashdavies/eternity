@@ -1,14 +1,14 @@
 package io.ashdavies.eternity.chat;
 
 import dagger.Subcomponent;
+import dagger.android.AndroidInjector;
 import io.ashdavies.eternity.inject.ActivityScope;
-import io.ashdavies.eternity.inject.TypeComponent;
 
 @ActivityScope
-@Subcomponent(modules = ChatModule.class)
-public interface ChatComponent extends TypeComponent<ChatActivity> {
+@Subcomponent
+public interface ChatComponent extends AndroidInjector<ChatActivity> {
 
   @Subcomponent.Builder
-  interface Builder extends TypeComponent.Builder<ChatActivity, ChatComponent, ChatModule> {
+  abstract class Builder extends AndroidInjector.Builder<ChatActivity> {
   }
 }

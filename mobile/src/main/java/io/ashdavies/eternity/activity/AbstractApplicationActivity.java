@@ -5,14 +5,13 @@ import android.support.v7.app.AlertDialog;
 import android.view.MenuItem;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
-import dagger.MembersInjector;
 import io.ashdavies.commons.activity.AbstractActivity;
 import io.ashdavies.eternity.Config;
 import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import javax.inject.Inject;
 
-public abstract class AbstractApplicationActivity<Component> extends AbstractActivity implements Logger.Preparable, MembersInjector<Component> {
+public abstract class AbstractApplicationActivity extends AbstractActivity implements Logger.Preparable {
 
   private Unbinder unbinder;
 
@@ -22,14 +21,13 @@ public abstract class AbstractApplicationActivity<Component> extends AbstractAct
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
-
     unbinder = ButterKnife.bind(this);
-    injectMembers(createComponent());
 
+    inject();
     prepare(logger);
   }
 
-  protected abstract Component createComponent();
+  protected abstract void inject();
 
   @Override
   protected void onDestroy() {

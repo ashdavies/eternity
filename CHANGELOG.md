@@ -1,6 +1,13 @@
 Change Log
 ==========
 
+Version 1.4.5 *(2017-03-07)*
+----------------------------
+
+ * Update build environment process
+ * Update Dagger release candidate
+ * Include Dagger Android bindings
+ 
 Version 1.4.0 *(2017-03-02)*
 ----------------------------
 

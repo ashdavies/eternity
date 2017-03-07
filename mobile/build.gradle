@@ -81,11 +81,13 @@ dependencies {
 
   // Dagger
   compile libraries.dagger.core
+  compile libraries.dagger.android.support
   annotationProcessor libraries.dagger.compiler
+  annotationProcessor libraries.dagger.android.processor
 
   // UI
   compile libraries.fab
-  compile libraries.picasso
+  compile libraries.square.picasso
 
   // AutoValue
   provided libraries.auto.value.core
@@ -95,6 +97,11 @@ dependencies {
   compile libraries.auto.firebase.adapter
   provided libraries.auto.firebase.core
   annotationProcessor libraries.auto.firebase.compiler
+
+  // LeakCanary
+  debugCompile libraries.square.leakCanary.core
+  releaseCompile libraries.square.leakCanary.noOp
+  testCompile libraries.square.leakCanary.noOp
 
   // Testing
   testCompile libraries.jUnit

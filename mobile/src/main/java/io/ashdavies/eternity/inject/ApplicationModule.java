@@ -1,12 +1,11 @@
 package io.ashdavies.eternity.inject;
 
 import android.app.Application;
-import android.content.Context;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.preference.PreferenceManager;
 import dagger.Module;
 import dagger.Provides;
+import io.ashdavies.eternity.android.StringResolver;
 
 @Module
 public class ApplicationModule {
@@ -18,17 +17,17 @@ public class ApplicationModule {
   }
 
   @Provides
-  Context context() {
+  Application application() {
     return application;
   }
 
   @Provides
-  Resources resources() {
-    return application.getResources();
+  static StringResolver stringResolver(Application application) {
+    return new StringResolver(application.getResources());
   }
 
   @Provides
-  SharedPreferences sharedPreferences(Context context) {
-    return PreferenceManager.getDefaultSharedPreferences(context);
+  static SharedPreferences sharedPreferences(Application application) {
+    return PreferenceManager.getDefaultSharedPreferences(application);
   }
 }

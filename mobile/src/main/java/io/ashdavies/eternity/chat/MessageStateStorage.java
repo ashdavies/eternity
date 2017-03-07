@@ -1,5 +1,6 @@
 package io.ashdavies.eternity.chat;
 
+import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 import io.ashdavies.commons.storage.Storage;
@@ -14,14 +15,10 @@ class MessageStateStorage implements Storage<String, MessageState> {
   private final SharedPreferences preferences;
 
   @Inject
-  MessageStateStorage(Context context) {
-    this(context.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE));
+  MessageStateStorage(Application application) {
+    this.preferences = application.getSharedPreferences(SHARED_PREFERENCES_NAME, Context.MODE_PRIVATE);
   }
-
-  private MessageStateStorage(SharedPreferences preferences) {
-    this.preferences = preferences;
-  }
-
+  
   @Override
   public MessageState get(String uuid) throws IndexNotFoundException {
     return MessageState.create(uuid, preferences.getBoolean(uuid, false));

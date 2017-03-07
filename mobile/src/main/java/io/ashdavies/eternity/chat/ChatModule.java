@@ -1,12 +1,17 @@
 package io.ashdavies.eternity.chat;
 
+import android.app.Activity;
+import dagger.Binds;
 import dagger.Module;
-import io.ashdavies.eternity.inject.TypeModule;
+import dagger.android.ActivityKey;
+import dagger.android.AndroidInjector;
+import dagger.multibindings.IntoMap;
 
-@Module
-public class ChatModule extends TypeModule<ChatActivity> {
+@Module(subcomponents = ChatComponent.class)
+public abstract class ChatModule {
 
-  ChatModule(ChatActivity activity) {
-    super(activity);
-  }
+  @Binds
+  @IntoMap
+  @ActivityKey(ChatActivity.class)
+  abstract AndroidInjector.Factory<? extends Activity> chatActivityInjectorFactory(ChatComponent.Builder builder);
 }

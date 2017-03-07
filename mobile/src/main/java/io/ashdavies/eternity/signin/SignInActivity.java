@@ -5,15 +5,14 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import butterknife.OnClick;
+import dagger.android.AndroidInjection;
 import io.ashdavies.commons.util.IntentUtils;
 import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.activity.AbstractApplicationActivity;
 import io.ashdavies.eternity.chat.ChatActivity;
-import io.ashdavies.eternity.inject.ActivityComponentService;
-import io.ashdavies.eternity.inject.TypeComponent;
 import javax.inject.Inject;
 
-public class SignInActivity extends AbstractApplicationActivity<TypeComponent<SignInActivity>> implements SignInPresenter.View {
+public class SignInActivity extends AbstractApplicationActivity implements SignInPresenter.View {
 
   private static final int RC_SIGN_IN = 0x91;
 
@@ -26,6 +25,7 @@ public class SignInActivity extends AbstractApplicationActivity<TypeComponent<Si
   }
 
   @Inject SignInPresenter presenter;
+  @Inject SignInActivity activity;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -34,21 +34,13 @@ public class SignInActivity extends AbstractApplicationActivity<TypeComponent<Si
   }
 
   @Override
+  protected void inject() {
+    AndroidInjection.inject(this);
+  }
+
+  @Override
   protected int getLayoutId() {
     return R.layout.activity_login;
-  }
-
-  @Override
-  protected TypeComponent<SignInActivity> createComponent() {
-    return ActivityComponentService.obtain(this)
-        .getBuilder(SignInActivity.class)
-        .plus(new SignInModule(this))
-        .build();
-  }
-
-  @Override
-  public void injectMembers(TypeComponent<SignInActivity> component) {
-    component.injectMembers(this);
   }
 
   @Override

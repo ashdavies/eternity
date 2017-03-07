@@ -19,6 +19,7 @@ import butterknife.OnClick;
 import com.getbase.floatingactionbutton.FloatingActionsMenu;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.squareup.picasso.Picasso;
+import dagger.android.AndroidInjection;
 import io.ashdavies.commons.adapter.AbstractAdapter;
 import io.ashdavies.commons.util.BundleUtils;
 import io.ashdavies.commons.util.IntentUtils;
@@ -27,12 +28,10 @@ import io.ashdavies.eternity.Reporting;
 import io.ashdavies.eternity.activity.AbstractListActivity;
 import io.ashdavies.eternity.android.StringResolver;
 import io.ashdavies.eternity.domain.Message;
-import io.ashdavies.eternity.inject.ActivityComponentService;
-import io.ashdavies.eternity.inject.TypeComponent;
 import io.ashdavies.eternity.signin.SignInActivity;
 import javax.inject.Inject;
 
-public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivity>, Pair<Message, MessageState>> implements ChatPresenter.View {
+public class ChatActivity extends AbstractListActivity<Pair<Message, MessageState>> implements ChatPresenter.View {
 
   private static final int RC_INVITE = 0x91;
 
@@ -60,6 +59,11 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
     getSupportActionBar().setDisplayShowTitleEnabled(false);
 
     presenter.onAttach(this);
+  }
+
+  @Override
+  protected void inject() {
+    AndroidInjection.inject(this);
   }
 
   @Override
@@ -119,19 +123,6 @@ public class ChatActivity extends AbstractListActivity<TypeComponent<ChatActivit
   @Override
   protected int getLayoutId() {
     return R.layout.activity_chat;
-  }
-
-  @Override
-  protected TypeComponent<ChatActivity> createComponent() {
-    return ActivityComponentService.obtain(this)
-        .getBuilder(ChatActivity.class)
-        .plus(new ChatModule(this))
-        .build();
-  }
-
-  @Override
-  public void injectMembers(TypeComponent<ChatActivity> component) {
-    component.injectMembers(this);
   }
 
   @Override

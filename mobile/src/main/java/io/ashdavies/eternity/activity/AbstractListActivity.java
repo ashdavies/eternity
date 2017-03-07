@@ -11,7 +11,7 @@ import io.ashdavies.commons.view.ListView;
 import io.ashdavies.eternity.R;
 import java.util.Collection;
 
-public abstract class AbstractListActivity<Component, T> extends AbstractApplicationActivity<Component> implements ListView<T> {
+public abstract class AbstractListActivity<T> extends AbstractApplicationActivity implements ListView<T> {
 
   private AbstractAdapter<? extends AbstractAdapter.ViewHolder<T>, T> adapter;
 
