@@ -7,7 +7,6 @@ import io.ashdavies.eternity.Config;
 import io.ashdavies.eternity.Logger;
 import io.ashdavies.eternity.R;
 import io.ashdavies.rx.rxtasks.RxTasks;
-import io.reactivex.functions.Action;
 import java.util.concurrent.TimeUnit;
 
 class FirebaseConfig implements Config {
@@ -43,13 +42,9 @@ class FirebaseConfig implements Config {
   @Override
   public void prepare(Logger logger) {
     RxTasks.completable(firebase.fetch(getCacheExpirationInSeconds()))
-        .subscribe(new Action() {
-
-          @Override
-          public void run() throws Exception {
-            firebase.activateFetched();
-            state.reset();
-          }
+        .subscribe(() -> {
+          firebase.activateFetched();
+          state.reset();
         }, new LoggerError(logger));
   }
 

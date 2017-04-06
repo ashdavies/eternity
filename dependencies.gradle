@@ -1,7 +1,7 @@
 ext {
 
-  sourceCompatibilityVersion = JavaVersion.VERSION_1_7
-  targetCompatibilityVersion = JavaVersion.VERSION_1_7
+  sourceCompatibilityVersion = JavaVersion.VERSION_1_8
+  targetCompatibilityVersion = JavaVersion.VERSION_1_8
 
   versions = [
 
@@ -26,7 +26,7 @@ ext {
       ],
 
       butterknife: '8.5.1',
-      dagger     : '2.10-rc2',
+      dagger     : '2.10',
       fab        : '1.10.1',
 
       google     : [
@@ -117,8 +117,8 @@ ext {
 
           android : [
 
-              processor: "com.google.dagger:dagger-android-processor:$versions.dagger",
-              support  : "com.google.dagger:dagger-android-support:$versions.dagger"
+              support  : "com.google.dagger:dagger-android-support:$versions.dagger",
+              processor: "com.google.dagger:dagger-android-processor:$versions.dagger"
 
           ]
 

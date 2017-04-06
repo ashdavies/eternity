@@ -15,11 +15,8 @@ import io.ashdavies.eternity.android.StringResolver;
 import io.ashdavies.eternity.domain.Author;
 import io.ashdavies.eternity.domain.Message;
 import io.ashdavies.eternity.rx.AbstractViewError;
-import io.ashdavies.rx.repository.Repository;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Action;
-import io.reactivex.functions.Consumer;
 import java.util.UUID;
 import javax.annotation.Nullable;
 import javax.inject.Inject;
@@ -71,14 +68,10 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
     Disposable disposable = messages.getAll()
         .doOnNext(reporting)
         .doOnNext(indexer)
-        .subscribe(new Consumer<Message>() {
-
-          @Override
-          public void accept(Message message) throws Exception {
-            view.add(new Pair<>(message, storage.get(message.uuid())));
-            view.collapseActions();
-            view.scrollToTop();
-          }
+        .subscribe(message -> {
+          view.add(new Pair<>(message, storage.get(message.uuid())));
+          view.collapseActions();
+          view.scrollToTop();
         }, new AbstractViewError<>(view));
 
     disposables.add(disposable);
@@ -102,7 +95,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
     }
 
     reporting.favourite(message.text(), favourite);
-    storage.put(MessageState.create(message.uuid(), favourite), new MessageStateResolver());
+    storage.put(MessageState.create(message.uuid(), favourite), MessageState::uuid);
   }
 
   @Override
@@ -125,29 +118,16 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
         .build();
 
     Disposable disposable = messages
-        .put(message, new Repository.Resolver<Message, String>() {
-          @Override
-          public String resolve(Message message) {
-            return message.uuid();
+        .put(message, Message::uuid)
+        .doOnComplete(() -> {
+          if (original != null) {
+            reporting.repost(original.text());
+            return;
           }
-        })
-        .doOnComplete(new Action() {
-          @Override
-          public void run() throws Exception {
-            if (original != null) {
-              reporting.repost(original.text());
-              return;
-            }
 
-            reporting.post(string);
-          }
+          reporting.post(string);
         })
-        .subscribe(new Action() {
-          @Override
-          public void run() throws Exception {
-            getView().hideProgress();
-          }
-        }, new AbstractViewError<>(getView()));
+        .subscribe(() -> getView().hideProgress(), new AbstractViewError<>(getView()));
 
     disposables.add(disposable);
   }

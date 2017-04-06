@@ -4,19 +4,16 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
-import io.ashdavies.eternity.rx.ConnectOnSubscribe;
-import io.ashdavies.eternity.rx.DisconnectOnCancel;
 import io.reactivex.Flowable;
 import io.reactivex.processors.ReplayProcessor;
 import javax.annotation.Nullable;
 
-public abstract class GoogleApiProcessor implements ConnectOnSubscribe.Connectable, DisconnectOnCancel.Disconnectable, GoogleApiClient.ConnectionCallbacks,
-    GoogleApiClient.OnConnectionFailedListener {
+public abstract class GoogleApiProcessor implements GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener {
 
   private final ReplayProcessor<Event> processor;
 
   protected GoogleApiProcessor() {
-    this(ReplayProcessor.<GoogleApiProcessor.Event>create());
+    this(ReplayProcessor.create());
   }
 
   private GoogleApiProcessor(ReplayProcessor<GoogleApiProcessor.Event> processor) {
@@ -39,9 +36,13 @@ public abstract class GoogleApiProcessor implements ConnectOnSubscribe.Connectab
 
   public Flowable<Event> onConnectionEvent() {
     return processor
-        .doOnSubscribe(new ConnectOnSubscribe(this))
-        .doOnCancel(new DisconnectOnCancel(this));
+        .doOnSubscribe(subscription -> connect())
+        .doOnCancel(this::disconnect);
   }
+
+  protected abstract void connect();
+
+  protected abstract void disconnect();
 
   public enum Event {
     CONNECTED,

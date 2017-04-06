@@ -11,7 +11,7 @@ public class ConnectionFailedException extends Throwable {
 
   private final ConnectionResult result;
 
-  public ConnectionFailedException(ConnectionResult result) {
+  ConnectionFailedException(ConnectionResult result) {
     super(getStatusCode(result));
     this.result = result;
   }

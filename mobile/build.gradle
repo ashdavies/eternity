@@ -4,7 +4,7 @@ buildscript {
   }
 
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.0'
+    classpath 'com.android.tools.build:gradle:2.4.0-alpha4'
     classpath 'com.google.gms:google-services:3.0.0'
 
     classpath 'com.dicedmelon.gradle:jacoco-android:0.1.1'
@@ -21,12 +21,21 @@ android {
   compileSdkVersion 25
   buildToolsVersion '25.0.2'
 
+  buildTypes {
+    debug {
+      minifyEnabled false
+      multiDexEnabled true
+    }
+  }
+
   defaultConfig {
     applicationId 'io.ashdavies.eternity'
 
-    /*jackOptions {
-      enabled true
-    }*/
+    javaCompileOptions {
+      annotationProcessorOptions {
+        includeCompileClasspath false
+      }
+    }
 
     lintOptions {
       disable 'InvalidPackage'
