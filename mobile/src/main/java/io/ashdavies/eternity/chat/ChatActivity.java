@@ -79,6 +79,12 @@ public class ChatActivity extends AbstractListActivity<Pair<Message, MessageStat
   }
 
   @Override
+  public void onBackPressed() {
+    SignInActivity.start(this);
+    finish();
+  }
+
+  @Override
   protected AbstractAdapter<? extends AbstractAdapter.ViewHolder<Pair<Message, MessageState>>, Pair<Message, MessageState>> createAdapter(Context context) {
     return new ChatAdapter(context, presenter);
   }
@@ -104,10 +110,9 @@ public class ChatActivity extends AbstractListActivity<Pair<Message, MessageStat
         return true;
 
       case R.id.action_sign_out:
-        SignInActivity.start(this);
-        finish();
-
+        onBackPressed();
         return true;
+        
       default:
         return super.onOptionsItemSelected(item);
     }
