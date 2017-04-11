@@ -64,7 +64,7 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
     disposables = new CompositeDisposable();
   }
 
-  private void initMessages(final View view) {
+  private void initMessages(View view) {
     Disposable disposable = messages.getAll()
         .doOnNext(reporting)
         .doOnNext(indexer)

@@ -35,6 +35,11 @@ public class SignInPresenter extends AbstractViewPresenter<SignInPresenter.View>
         .subscribe(result -> getView().startChatActivity(), new AbstractViewError<>(getView()));
   }
 
+  void signIn() {
+    RxFirebaseAuth.getInstance().signInAnonymously()
+        .subscribe(authResult -> getView().startChatActivity(), new AbstractViewError<>(getView()));
+  }
+
   public interface View extends AbstractView {
 
     void startChatActivity();

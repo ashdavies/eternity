@@ -7,6 +7,7 @@ import android.os.Bundle;
 import butterknife.OnClick;
 import dagger.android.AndroidInjection;
 import io.ashdavies.commons.util.IntentUtils;
+import io.ashdavies.eternity.BuildConfig;
 import io.ashdavies.eternity.R;
 import io.ashdavies.eternity.activity.AbstractApplicationActivity;
 import io.ashdavies.eternity.chat.ChatActivity;
@@ -68,6 +69,11 @@ public class SignInActivity extends AbstractApplicationActivity implements SignI
 
   @OnClick(R.id.action_sign_in)
   void onLogin() {
+    if (BuildConfig.DEBUG) {
+      presenter.signIn();
+      return;
+    }
+    
     startActivityForResult(presenter.getSignInIntent(), RC_SIGN_IN);
   }
 }
