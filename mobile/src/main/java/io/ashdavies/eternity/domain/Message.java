@@ -2,6 +2,7 @@ package io.ashdavies.eternity.domain;
 
 import com.google.auto.value.AutoValue;
 import com.google.firebase.database.DataSnapshot;
+import java.util.UUID;
 import javax.annotation.Nullable;
 import me.mattlogan.auto.value.firebase.annotation.FirebaseValue;
 
@@ -21,8 +22,18 @@ public abstract class Message {
     return new AutoValue_Message.FirebaseValue(this);
   }
 
-  public static Builder builder() {
-    return new AutoValue_Message.Builder();
+  private static Builder builder() {
+    return new AutoValue_Message.Builder()
+        .uuid(UUID.randomUUID().toString())
+        .created(System.currentTimeMillis());
+  }
+
+  public static Builder from(String text) {
+    return builder().text(text);
+  }
+
+  public static Builder from(Message message) {
+    return from(message.text()).original(message);
   }
 
   public static Message create(DataSnapshot snapshot) {

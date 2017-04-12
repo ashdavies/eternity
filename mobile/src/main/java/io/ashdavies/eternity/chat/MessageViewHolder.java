@@ -86,7 +86,7 @@ class MessageViewHolder extends AbstractAdapter.ViewHolder<Pair<Message, Message
 
     @Override
     public void onClick(View view) {
-      listener.post(message.text(), message);
+      listener.repost(message);
     }
   }
 

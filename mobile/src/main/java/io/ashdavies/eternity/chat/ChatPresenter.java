@@ -17,8 +17,6 @@ import io.ashdavies.eternity.domain.Message;
 import io.ashdavies.eternity.rx.AbstractViewError;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
-import java.util.UUID;
-import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements MessageListener {
@@ -104,29 +102,30 @@ class ChatPresenter extends AbstractViewPresenter<ChatPresenter.View> implements
   }
 
   @Override
-  public void post(final String string, @Nullable final Message original) {
-    if (original != null && !repostEnabled()) {
+  public void post(String string) {
+    Message message = Message.from(string)
+        .author(Author.from(FirebaseAuth.getInstance().getCurrentUser()))
+        .build();
+
+    Disposable disposable = messages.put(message, Message::uuid)
+        .doOnComplete(() -> reporting.post(string))
+        .subscribe(() -> getView().hideProgress(), new AbstractViewError<>(getView()));
+
+    disposables.add(disposable);
+  }
+
+  @Override
+  public void repost(Message original) {
+    if (!repostEnabled()) {
       return;
     }
 
-    Message message = Message.builder()
-        .uuid(UUID.randomUUID().toString())
-        .text(string)
+    Message message = Message.from(original)
         .author(Author.from(FirebaseAuth.getInstance().getCurrentUser()))
-        .created(System.currentTimeMillis())
-        .original(original)
         .build();
 
-    Disposable disposable = messages
-        .put(message, Message::uuid)
-        .doOnComplete(() -> {
-          if (original != null) {
-            reporting.repost(original.text());
-            return;
-          }
-
-          reporting.post(string);
-        })
+    Disposable disposable = messages.put(message, Message::uuid)
+        .doOnComplete(() -> reporting.repost(original.text()))
         .subscribe(() -> getView().hideProgress(), new AbstractViewError<>(getView()));
 
     disposables.add(disposable);

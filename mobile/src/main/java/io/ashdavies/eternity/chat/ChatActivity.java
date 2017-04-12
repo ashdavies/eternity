@@ -112,7 +112,7 @@ public class ChatActivity extends AbstractListActivity<Pair<Message, MessageStat
       case R.id.action_sign_out:
         onBackPressed();
         return true;
-        
+
       default:
         return super.onOptionsItemSelected(item);
     }
@@ -156,11 +156,11 @@ public class ChatActivity extends AbstractListActivity<Pair<Message, MessageStat
 
   @OnClick(R.id.action_house_traps)
   void onActionHouseTrapsClick() {
-    presenter.post(resolver.get(R.string.message_house_traps), null);
+    presenter.post(resolver.get(R.string.message_house_traps));
   }
 
   @OnClick(R.id.action_horse_aisle)
   void onActionHorseAisleClick() {
-    presenter.post(resolver.get(R.string.message_horse_aisle), null);
+    presenter.post(resolver.get(R.string.message_horse_aisle));
   }
 }

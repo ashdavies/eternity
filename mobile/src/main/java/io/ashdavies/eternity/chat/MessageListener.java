@@ -1,7 +1,6 @@
 package io.ashdavies.eternity.chat;
 
 import io.ashdavies.eternity.domain.Message;
-import javax.annotation.Nullable;
 
 interface MessageListener {
 
@@ -11,5 +10,7 @@ interface MessageListener {
 
   boolean repostEnabled();
 
-  void post(String string, @Nullable Message message);
+  void post(String string);
+
+  void repost(Message original);
 }

@@ -37,7 +37,7 @@ class MessageRepository implements Repository<Message, String> {
     Query query = FirebaseDatabase.getInstance()
         .getReference(CHILD_MESSAGES)
         .orderByChild(QUERY_ORDER)
-        .limitToFirst(QUERY_LIMIT);
+        .limitToLast(QUERY_LIMIT);
 
     return RxFirebaseDatabase.with(query)
         .onChildEvent(ChildEvent.Type.CHILD_ADDED)
