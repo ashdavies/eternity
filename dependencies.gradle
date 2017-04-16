@@ -44,8 +44,7 @@ ext {
 
           java    : '2.0.6',
           android : '2.0.1',
-          tasks   : '1.1.3',
-          firebase: '1.2.3',
+          firebase: '1.3.3',
 
       ],
 
@@ -155,7 +154,6 @@ ext {
 
           java    : "io.reactivex.rxjava2:rxjava:$versions.rx.java",
           android : "io.reactivex.rxjava2:rxandroid:$versions.rx.android",
-          tasks   : "io.ashdavies.rx:rx-tasks:$versions.rx.tasks",
           firebase: "io.ashdavies.rx:rx-firebase:$versions.rx.firebase",
 
       ],

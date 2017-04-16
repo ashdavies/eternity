@@ -81,7 +81,6 @@ dependencies {
   // RxJava
   compile libraries.rx.java
   compile libraries.rx.android
-  compile libraries.rx.tasks
   compile libraries.rx.firebase
 
   // ButterKnife

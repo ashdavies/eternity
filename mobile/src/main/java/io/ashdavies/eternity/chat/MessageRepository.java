@@ -1,7 +1,5 @@
 package io.ashdavies.eternity.chat;
 
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import io.ashdavies.commons.util.StringUtils;
 import io.ashdavies.eternity.domain.Message;
 import io.ashdavies.rx.repository.Repository;
@@ -34,12 +32,9 @@ class MessageRepository implements Repository<Message, String> {
 
   @Override
   public Flowable<Message> getAll() {
-    Query query = FirebaseDatabase.getInstance()
-        .getReference(CHILD_MESSAGES)
+    return RxFirebaseDatabase.getInstance(CHILD_MESSAGES)
+        .limitToLast(QUERY_LIMIT)
         .orderByChild(QUERY_ORDER)
-        .limitToLast(QUERY_LIMIT);
-
-    return RxFirebaseDatabase.with(query)
         .onChildEvent(ChildEvent.Type.CHILD_ADDED)
         .map(event -> Message.create(event.snapshot()));
   }
