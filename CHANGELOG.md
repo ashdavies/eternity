@@ -1,7 +1,7 @@
 Change Log
 ==========
 
-Version 1.4.6 *(2017-04-16)*
+Version 1.4.7 *(2017-04-16)*
 ----------------------------
 
  * Resolve issue with post ordering
