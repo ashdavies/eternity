@@ -8,26 +8,15 @@ import dagger.Provides;
 import io.ashdavies.eternity.android.StringResolver;
 
 @Module
-public class ApplicationModule {
-
-  private final Application application;
-
-  public ApplicationModule(Application application) {
-    this.application = application;
-  }
+public abstract class ApplicationModule {
 
   @Provides
-  Application application() {
-    return application;
-  }
-
-  @Provides
-  static StringResolver stringResolver(Application application) {
+  static StringResolver resolver(Application application) {
     return new StringResolver(application.getResources());
   }
 
   @Provides
-  static SharedPreferences sharedPreferences(Application application) {
+  static SharedPreferences preferences(Application application) {
     return PreferenceManager.getDefaultSharedPreferences(application);
   }
 }

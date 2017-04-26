@@ -59,10 +59,10 @@ dependencies {
   compile libraries.android.commons
 
   // Support
-  compile libraries.android.support.appCompat
-  compile libraries.android.support.cardView
+  compile libraries.android.support.compat
+  compile libraries.android.support.cards
   compile libraries.android.support.design
-  compile libraries.android.support.recyclerView
+  compile libraries.android.support.recycler
 
   // Google
   compile libraries.google.play.auth
@@ -105,11 +105,6 @@ dependencies {
   compile libraries.auto.firebase.adapter
   provided libraries.auto.firebase.core
   annotationProcessor libraries.auto.firebase.compiler
-
-  // LeakCanary
-  debugCompile libraries.square.leakCanary.core
-  releaseCompile libraries.square.leakCanary.noOp
-  testCompile libraries.square.leakCanary.noOp
 
   // Testing
   testCompile libraries.jUnit
