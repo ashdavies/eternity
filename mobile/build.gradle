@@ -33,7 +33,7 @@ android {
 
     javaCompileOptions {
       annotationProcessorOptions {
-        includeCompileClasspath false
+        includeCompileClasspath true
       }
     }
 

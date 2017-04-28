@@ -14,6 +14,7 @@ import io.ashdavies.eternity.firebase.FirebaseModule;
         FirebaseModule.class
     }
 )
+@ApplicationScope
 public interface ApplicationComponent extends AndroidInjector<Eternity> {
 
   @Component.Builder
